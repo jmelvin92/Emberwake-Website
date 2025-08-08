@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emberwake - Post-Hardcore/Metalcore Band</title>
+    <meta name="description" content="Emberwake - Official website of the post-hardcore/metalcore band. Listen to our latest music, check tour dates, and shop official merchandise.">
+    <meta name="keywords" content="Emberwake, metalcore, post-hardcore, band, music, tour dates, merchandise">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Emberwake - Post-Hardcore/Metalcore Band">
+    <meta property="og:description" content="Official website of Emberwake. Listen to our latest music, check tour dates, and shop official merchandise.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://emberwake.com">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Creepster&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="Assets/Emberwake logo alt 2.png" alt="Emberwake Logo">
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#hero" class="nav-link">Home</a>
+                <div class="nav-separator"></div>
+                <a href="#media" class="nav-link">Media</a>
+                <div class="nav-separator"></div>
+                <a href="#tour" class="nav-link">Tour</a>
+                <div class="nav-separator"></div>
+                <a href="#merch" class="nav-link">Merch</a>
+                <div class="nav-separator"></div>
+                <a href="#about" class="nav-link">About</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Video Banner -->
+    <section class="hero-video-banner" id="video-banner">
+        <!-- Placeholder: Dark gradient background until video is web-compatible -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #000000, #1a0000, #000000); z-index: 1;"></div>
+        
+        <!-- Video Banner -->
+        <video 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            class="banner-video" 
+            preload="auto"
+            style="display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;">
+            <source src="Assets/Anhedonia%20Chorus%202.webm" type="video/webm">
+            <source src="Assets/video1.mp4" type="video/mp4">
+        </video>
+        
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+            <img src="Assets/Emberwake logo alt.png" alt="Emberwake" class="banner-logo">
+        </div>
+    </section>
+
+    <!-- Mystical Scrolling Text -->
+    <div class="mystical-text-container">
+        <div class="mystical-text-line" data-text="MISERY,">MISERY,</div>
+        <div class="mystical-text-line" data-text="OH">OH</div>
+        <div class="mystical-text-line" data-text="CAN'T">CAN'T</div>
+        <div class="mystical-text-line" data-text="YOU">YOU</div>
+        <div class="mystical-text-line" data-text="SEE">SEE</div>
+    </div>
+
+    <!-- Hero Content Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <div class="hero-buttons">
+                <a href="#media" class="btn btn-primary pulse-effect">ENTER THE VOID</a>
+                <a href="#tour" class="btn btn-secondary">TOUR DATES</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Media Section -->
+    <section id="media" class="media-section">
+        <div class="container">
+            <h2 class="section-title">Music Videos</h2>
+            
+            <!-- Featured Video -->
+            <div class="featured-video">
+                <div class="featured-video-container">
+                    <div class="video-wrapper featured">
+                        <iframe src="https://www.youtube.com/embed/0bEjbjHbeCE" 
+                                title="Emberwake - Distant (Official Music Video)" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-metadata">
+                        <h3 class="video-title">Distant</h3>
+                        <p class="video-details">Official Music Video • 2024</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Videos Grid -->
+            <div class="videos-grid">
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/CxIdVQRs9RM" 
+                                title="Emberwake - Mirror (Official Music Video)" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-metadata">
+                        <h4 class="video-title">Mirror</h4>
+                        <p class="video-details">Official Video • 2024</p>
+                    </div>
+                </div>
+            </div>
+            <div class="streaming-links">
+                <h3>Stream Everywhere</h3>
+                <div class="streaming-platforms">
+                    <a href="https://open.spotify.com/artist/emberwake" target="_blank" class="platform-link">
+                        <i class="fab fa-spotify"></i>
+                        <span>Spotify</span>
+                    </a>
+                    <a href="https://music.apple.com/artist/emberwake" target="_blank" class="platform-link">
+                        <i class="fab fa-apple"></i>
+                        <span>Apple Music</span>
+                    </a>
+                    <a href="https://youtube.com/emberwake" target="_blank" class="platform-link">
+                        <i class="fab fa-youtube"></i>
+                        <span>YouTube</span>
+                    </a>
+                    <a href="https://soundcloud.com/emberwake" target="_blank" class="platform-link">
+                        <i class="fab fa-soundcloud"></i>
+                        <span>SoundCloud</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tour Dates Section -->
+    <section id="tour" class="tour-section">
+        <div class="container">
+            <h2 class="section-title">Tour Dates</h2>
+            <div class="tour-dates">
+                <div class="tour-date">
+                    <div class="date-info">
+                        <span class="date">AUG 10</span>
+                        <span class="year">2025</span>
+                    </div>
+                    <div class="venue-info">
+                        <h4>The Alpine</h4>
+                        <p>Reno, Nevada</p>
+                    </div>
+                    <div class="ticket-info">
+                        <a href="#" class="btn btn-outline">Tickets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Merch Section -->
+    <section id="merch" class="merch-section">
+        <div class="container">
+            <h2 class="section-title">Official Merchandise</h2>
+            <div class="merch-grid">
+                <div class="merch-item">
+                    <div class="merch-image">
+                        <img src="https://via.placeholder.com/300x300/1a1a1a/ffffff?text=Band+Tee" alt="Emberwake T-Shirt">
+                        <div class="merch-overlay">
+                            <button class="btn btn-primary">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="merch-info">
+                        <h4>Emberwake Logo Tee</h4>
+                        <p class="price">$25.00</p>
+                    </div>
+                </div>
+                <div class="merch-item">
+                    <div class="merch-image">
+                        <img src="https://via.placeholder.com/300x300/1a1a1a/ffffff?text=Hoodie" alt="Emberwake Hoodie">
+                        <div class="merch-overlay">
+                            <button class="btn btn-primary">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="merch-info">
+                        <h4>Emberwake Hoodie</h4>
+                        <p class="price">$45.00</p>
+                    </div>
+                </div>
+                <div class="merch-item">
+                    <div class="merch-image">
+                        <img src="https://via.placeholder.com/300x300/1a1a1a/ffffff?text=Vinyl" alt="Emberwake Vinyl">
+                        <div class="merch-overlay">
+                            <button class="btn btn-primary">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="merch-info">
+                        <h4>Latest Album Vinyl</h4>
+                        <p class="price">$35.00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="merch-cta">
+                <a href="#" class="btn btn-secondary">View All Merchandise</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About Emberwake</h2>
+                    <p>Born from the ashes of creative passion and forged in the fires of raw emotion, Emberwake stands as a beacon in the post-hardcore and metalcore landscape. Our sound combines crushing breakdowns with soaring melodies, creating an atmospheric journey through darkness and light.</p>
+                    <p>With influences ranging from classic metalcore pioneers to modern post-hardcore innovators, we craft songs that speak to the human experience - the struggles, the triumphs, and everything in between. Each track is a chapter in our ongoing story of resilience and rebirth.</p>
+                    <p>Join us as we continue to push the boundaries of heavy music, one crushing riff at a time.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/500x600/1a1a1a/ffffff?text=Band+Photo" alt="Emberwake Band Photo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="Assets/Emberwake logo alt 2.png" alt="Emberwake">
+                </div>
+                <div class="footer-social">
+                    <a href="https://instagram.com/emberwakeband" target="_blank" class="social-link" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://facebook.com/emberwakeband" target="_blank" class="social-link" title="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://tiktok.com/@emberwakeband" target="_blank" class="social-link" title="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://youtube.com/@emberwakeband" target="_blank" class="social-link" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://discord.gg/TWRQ7Rmj" target="_blank" class="social-link" title="Discord">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+                <div class="footer-contact">
+                    <p>Contact: <a href="mailto:info@emberwake.com">info@emberwake.com</a></p>
+                    <p><a href="README.md" target="_blank">Project Documentation</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Emberwake. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
