@@ -5,6 +5,19 @@
     box-sizing: border-box;
 }
 
+/* Performance optimizations */
+.hero-video,
+.banner-video,
+.mystical-text-line,
+.custom-cursor,
+.cursor-trail,
+.video-wrapper iframe {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
 :root {
     --primary-color: #ff3333;
     --primary-glow: #ff0000;
@@ -977,6 +990,29 @@ h1, h2, h3, h4 {
     margin-right: auto;
 }
 
+.merch-coming-soon {
+    text-align: center;
+    padding: 6rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.merch-coming-soon h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+}
+
+.merch-coming-soon p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
 .merch-item {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 0, 0, 0.02) 100%);
     border: 1px solid rgba(255, 51, 51, 0.2);
@@ -1430,17 +1466,7 @@ h1, h2, h3, h4 {
 
 /* Custom Flaming Rose Cursor */
 .custom-cursor {
-    width: 30px;
-    height: 30px;
-    position: fixed;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 9999;
-    transition: all 0.1s ease;
-    background: radial-gradient(circle at center, #ff3333 0%, #ff6600 30%, #cc0000 60%, transparent 80%);
-    border-radius: 50% 80% 50% 80%;
-    filter: drop-shadow(0 0 8px #ff0000) drop-shadow(0 0 15px #ff3333);
-    animation: roseFlame 2s ease-in-out infinite;
+    display: none; /* Completely disable custom cursor for maximum performance */
 }
 
 .custom-cursor::before {
@@ -1577,36 +1603,18 @@ body.loaded {
     font-size: 3rem;
     font-weight: 900;
     letter-spacing: 4px;
-    color: transparent;
-    background: linear-gradient(45deg, #ff3333, #ff6600, #cc0000, #ff3333);
-    background-size: 400% 400%;
-    -webkit-background-clip: text;
-    background-clip: text;
+    color: #ff3333; /* Simplified to solid color */
     text-shadow: 
-        0 0 20px rgba(255, 51, 51, 0.5),
-        0 0 40px rgba(255, 51, 51, 0.3),
-        0 0 60px rgba(255, 51, 51, 0.2);
+        0 0 20px rgba(255, 51, 51, 0.5);
     opacity: 0;
     transform: translateX(-50px);
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Simplified transition */
     position: relative;
-    animation: gradientShift 4s ease-in-out infinite;
     white-space: nowrap;
 }
 
 .mystical-text-line::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: linear-gradient(45deg, #ffffff, #ffaa00, #ff6600);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: blur(2px);
-    opacity: 0.3;
-    animation: mysticalGlow 3s ease-in-out infinite;
+    display: none; /* Disable pseudo-element for performance */
 }
 
 .mystical-text-line::after {
@@ -1625,11 +1633,6 @@ body.loaded {
 .mystical-text-line.visible {
     opacity: 0.6;
     transform: translateX(0);
-    text-shadow: 
-        0 0 30px rgba(255, 51, 51, 0.5),
-        0 0 60px rgba(255, 51, 51, 0.3),
-        0 0 90px rgba(255, 51, 51, 0.15);
-    animation: textGlitch 3s infinite, gradientShift 4s ease-in-out infinite;
 }
 
 .mystical-text-line.visible::after {
@@ -1643,10 +1646,12 @@ body.loaded {
     transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+/* Disabled for performance
 @keyframes gradientShift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
 }
+*/
 
 @keyframes mysticalGlow {
     0%, 100% { 
@@ -1662,49 +1667,11 @@ body.loaded {
 }
 
 @keyframes textGlitch {
-    0% { 
+    0%, 90%, 100% { 
         transform: translateX(0);
-        filter: hue-rotate(0deg);
     }
-    2% { 
-        transform: translateX(-2px) scaleX(1.02);
-        filter: hue-rotate(90deg);
-    }
-    4% { 
-        transform: translateX(2px) scaleY(1.01);
-        filter: hue-rotate(180deg);
-    }
-    6% { 
-        transform: translateX(0) scaleX(0.98);
-        filter: hue-rotate(270deg);
-    }
-    8% { 
-        transform: translateX(-1px) scaleY(1.02);
-        filter: hue-rotate(0deg);
-    }
-    10%, 90% { 
-        transform: translateX(0);
-        filter: hue-rotate(0deg);
-    }
-    92% { 
-        transform: translateX(1px) scaleX(1.01);
-        filter: hue-rotate(45deg);
-    }
-    94% { 
-        transform: translateX(-1px) scaleY(0.99);
-        filter: hue-rotate(135deg);
-    }
-    96% { 
-        transform: translateX(0) scaleX(1.01);
-        filter: hue-rotate(225deg);
-    }
-    98% { 
-        transform: translateX(0) scaleY(1.01);
-        filter: hue-rotate(315deg);
-    }
-    100% { 
-        transform: translateX(0);
-        filter: hue-rotate(0deg);
+    95% { 
+        transform: translateX(-1px);
     }
 }
 
@@ -1745,6 +1712,232 @@ body.loaded {
         transform: translateX(0);
         filter: hue-rotate(0deg);
     }
+}
+
+/* Hyper Pong Easter Egg Styles */
+.pong-game-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+}
+
+.pong-game-container.active {
+    display: block;
+}
+
+.pong-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(5px);
+}
+
+.pong-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 900px;
+    height: 80vh;
+    max-height: 600px;
+    background: linear-gradient(135deg, #0a0a0a, #1a0000);
+    border: 3px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 
+        0 0 50px rgba(255, 51, 51, 0.5),
+        0 0 100px rgba(255, 51, 51, 0.3),
+        inset 0 0 50px rgba(255, 51, 51, 0.1);
+    animation: pongModalGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pongModalGlow {
+    0% { box-shadow: 0 0 50px rgba(255, 51, 51, 0.5), 0 0 100px rgba(255, 51, 51, 0.3), inset 0 0 50px rgba(255, 51, 51, 0.1); }
+    100% { box-shadow: 0 0 60px rgba(255, 102, 0, 0.6), 0 0 120px rgba(255, 102, 0, 0.4), inset 0 0 60px rgba(255, 102, 0, 0.15); }
+}
+
+.pong-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.pong-close:hover {
+    background: var(--primary-color);
+    color: black;
+    transform: rotate(90deg);
+}
+
+.pong-ui {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+}
+
+.pong-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--primary-color);
+    text-shadow: 
+        0 0 20px rgba(255, 51, 51, 0.8),
+        0 0 40px rgba(255, 51, 51, 0.4);
+    letter-spacing: 10px;
+    margin-bottom: 10px;
+}
+
+.player-score, .ai-score {
+    display: inline-block;
+    min-width: 80px;
+    animation: scoreGlitch 5s infinite;
+}
+
+.score-separator {
+    margin: 0 20px;
+    color: #666;
+}
+
+@keyframes scoreGlitch {
+    0%, 90%, 100% { transform: translateX(0); filter: hue-rotate(0deg); }
+    91% { transform: translateX(-2px); filter: hue-rotate(90deg); }
+    92% { transform: translateX(2px); filter: hue-rotate(180deg); }
+    93% { transform: translateX(0); filter: hue-rotate(0deg); }
+}
+
+.combo-display {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5rem;
+    color: #ff6600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.combo-display.active {
+    opacity: 1;
+    animation: comboPulse 0.5s ease;
+}
+
+@keyframes comboPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.speed-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+}
+
+.speed-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+    letter-spacing: 2px;
+}
+
+.speed-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.speed-fill {
+    height: 100%;
+    width: 20%;
+    background: linear-gradient(90deg, #ff3333, #ff6600);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 51, 51, 0.8);
+}
+
+#pong-canvas {
+    display: block;
+    width: 860px;
+    height: 400px;
+    margin: 80px auto 0;
+    border-radius: 5px;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 51, 51, 0.3);
+}
+
+.pong-instructions {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #666;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Particle effect container */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 6px var(--primary-color);
+}
+
+/* Nav logo cursor for easter egg */
+.nav-logo {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.nav-logo::after {
+    content: '🎮';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-logo:hover::after {
+    opacity: 1;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px rgba(255, 51, 51, 0.5));
+}
+
+.nav-logo:active {
+    transform: scale(0.95);
 }
 
 /* Smooth scrolling for Safari */
