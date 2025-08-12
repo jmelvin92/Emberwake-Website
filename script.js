@@ -1232,6 +1232,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Initialize the game after a short delay to ensure all DOM elements are ready
+    // Temporarily disabled for performance optimization
+    /*
     setTimeout(() => {
         const hyperPong = new HyperPong();
         console.log('HyperPong game initialized!');
@@ -1240,4 +1242,5 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('%c🎮 Secret unlocked: Click the logo for a surprise! 🎮', 
                     'color: #ff6600; font-size: 14px; font-weight: bold;');
     }, 100);
+    */
 });
