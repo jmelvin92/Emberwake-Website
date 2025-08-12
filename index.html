@@ -54,7 +54,6 @@
     <meta name="msapplication-config" content="/browserconfig.xml">
     
     <!-- Performance and Security -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -73,8 +72,8 @@
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="Assets/Emberwake logo alt.png" as="image" fetchpriority="high">
-    <link rel="preload" href="styles.min.css" as="style">
-    <!-- Critical CSS Inline -->
+    <link rel="preload" href="styles.css" as="style">
+    <!-- Critical CSS Inline - Updated for performance -->
     <style>
         /* Critical above-the-fold styles */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -93,7 +92,7 @@
     <!-- Minimal Icon Set - Only used icons -->
     <link rel="stylesheet" href="icons-minimal.css">
     
-    <link rel="stylesheet" href="styles.min.css">
+    <link rel="stylesheet" href="styles.css">
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -339,12 +338,12 @@
         
         <!-- Video Banner -->
         <video 
-            autoplay 
             muted 
             loop 
             playsinline 
+            autoplay
             class="banner-video" 
-            preload="none"
+            preload="metadata"
             style="display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;">
             <source src="Assets/Anhedonia%20Chorus%202.webm" type="video/webm">
             <source src="Assets/video1.mp4" type="video/mp4">
@@ -390,22 +389,24 @@
             <div class="featured-video">
                 <div class="featured-video-container">
                     <div class="video-wrapper featured">
-                        <!-- YouTube Facade - Lightweight placeholder -->
-                        <div class="youtube-facade" data-video-id="0bEjbjHbeCE">
-                            <div class="youtube-thumbnail">
+                        <!-- YouTube Facade - Performance optimized -->
+                        <div class="youtube-facade" data-video-id="0bEjbjHbeCE" style="position: relative; width: 100%; padding-bottom: 56.25%; background: #000;">
+                            <div class="youtube-thumbnail" style="position: absolute; width: 100%; height: 100%; cursor: pointer;">
                                 <img src="https://img.youtube.com/vi/0bEjbjHbeCE/maxresdefault.jpg" 
                                      alt="Emberwake - Anhedonia Official Music Video Thumbnail" 
                                      width="560" 
                                      height="315"
-                                     loading="lazy">
-                                <div class="youtube-play-button">
+                                     loading="lazy"
+                                     decoding="async"
+                                     style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="youtube-play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.9; transition: opacity 0.2s;">
                                     <svg width="68" height="48" viewBox="0 0 68 48">
                                         <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
                                         <path d="M 45,24 27,14 27,34" fill="#fff"></path>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="youtube-title">Emberwake - Anhedonia (Official Music Video)</div>
+                            <div class="youtube-title" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; padding: 20px 10px 10px; font-size: 14px;">Emberwake - Anhedonia (Official Music Video)</div>
                         </div>
                     </div>
                 </div>
@@ -486,7 +487,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="Assets/Emberwake logo alt 2.png" alt="Emberwake logo" loading="lazy" width="200" height="67">
+                    <img src="Assets/Emberwake logo alt 2.png" alt="Emberwake logo" loading="lazy" width="200" height="67" decoding="async">
                 </div>
                 <div class="footer-social">
                     <a href="https://instagram.com/emberwakeband" target="_blank" class="social-link" title="Emberwake Instagram - Follow Emberwake on Instagram">
@@ -516,80 +517,55 @@
         </div>
     </footer>
 
-    <!-- Hyper Pong Easter Egg -->
-    <div id="pong-game-container" class="pong-game-container">
-        <div class="pong-overlay"></div>
-        <div class="pong-modal">
-            <button class="pong-close" aria-label="Close game">&times;</button>
-            <div class="pong-ui">
-                <div class="pong-score">
-                    <span class="player-score">0</span>
-                    <span class="score-separator">:</span>
-                    <span class="ai-score">0</span>
-                </div>
-                <div class="combo-display">COMBO x<span class="combo-count">1</span></div>
-                <div class="speed-indicator">
-                    <span class="speed-label">SPEED</span>
-                    <div class="speed-bar">
-                        <div class="speed-fill"></div>
-                    </div>
-                </div>
-            </div>
-            <canvas id="pong-canvas"></canvas>
-            <div class="pong-instructions">
-                <p>W/S or ↑/↓ to move • ESC to exit • SPACEBAR to pause</p>
-            </div>
-        </div>
-    </div>
 
     <script src="script.js" defer></script>
     
-    <!-- YouTube Facade Handler -->
+    <!-- YouTube Facade Handler - Performance Optimized -->
     <script>
-        // YouTube facade click handler for performance optimization
-        document.addEventListener('DOMContentLoaded', function() {
-            const youtubeFacades = document.querySelectorAll('.youtube-facade');
+        // Optimized YouTube facade with main-thread optimization
+        (function() {
+            'use strict';
             
-            youtubeFacades.forEach(facade => {
-                facade.addEventListener('click', function() {
-                    const videoId = this.dataset.videoId;
-                    if (!videoId) return;
-                    
-                    // Add loading state
-                    this.classList.add('loading');
-                    
-                    // Create iframe
-                    const iframe = document.createElement('iframe');
-                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-                    iframe.setAttribute('frameborder', '0');
-                    iframe.setAttribute('allowfullscreen', '');
-                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                    iframe.setAttribute('title', 'Emberwake - Anhedonia (Official Music Video)');
-                    iframe.style.width = '100%';
-                    iframe.style.height = '100%';
-                    iframe.style.position = 'absolute';
-                    iframe.style.top = '0';
-                    iframe.style.left = '0';
-                    
-                    // Replace facade with iframe
-                    this.parentNode.replaceChild(iframe, this);
+            const loadYouTubeVideo = (facade) => {
+                const videoId = facade.dataset.videoId;
+                if (!videoId) return;
+                
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+                iframe.width = '560';
+                iframe.height = '315';
+                iframe.frameBorder = '0';
+                iframe.allowFullscreen = true;
+                iframe.allow = 'autoplay; encrypted-media';
+                iframe.title = 'Emberwake - Anhedonia (Official Music Video)';
+                iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
+                
+                facade.parentNode.replaceChild(iframe, facade);
+            };
+            
+            const initFacades = () => {
+                const facades = document.querySelectorAll('.youtube-facade');
+                facades.forEach(facade => {
+                    facade.addEventListener('click', () => loadYouTubeVideo(facade), { once: true });
+                });
+            };
+            
+            // Use requestIdleCallback if available for better main-thread performance
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(initFacades);
+            } else {
+                document.addEventListener('DOMContentLoaded', initFacades);
+            }
+        })();
+        
+        // Simple video autoplay fallback for better browser compatibility
+        const bannerVideo = document.querySelector('.banner-video');
+        if (bannerVideo) {
+            bannerVideo.addEventListener('loadedmetadata', () => {
+                bannerVideo.play().catch(() => {
+                    // Autoplay failed, video will show first frame
                 });
             });
-        });
-        
-        // Lazy load banner video when in view
-        const bannerVideo = document.querySelector('.banner-video');
-        if (bannerVideo && 'IntersectionObserver' in window) {
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && bannerVideo.readyState === 0) {
-                        bannerVideo.load();
-                        videoObserver.unobserve(bannerVideo);
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            videoObserver.observe(bannerVideo);
         }
     </script>
 </body>
