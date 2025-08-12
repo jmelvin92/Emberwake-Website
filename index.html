@@ -90,9 +90,8 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
     
-    <!-- Font Awesome - Load async -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <!-- Minimal Icon Set - Only used icons -->
+    <link rel="stylesheet" href="icons-minimal.css">
     
     <link rel="stylesheet" href="styles.min.css">
     
@@ -345,7 +344,7 @@
             loop 
             playsinline 
             class="banner-video" 
-            preload="metadata"
+            preload="none"
             style="display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;">
             <source src="Assets/Anhedonia%20Chorus%202.webm" type="video/webm">
             <source src="Assets/video1.mp4" type="video/mp4">
@@ -543,7 +542,7 @@
         </div>
     </div>
 
-    <script src="script.js" defer></script>
+    <script src="script.min.js" defer></script>
     
     <!-- YouTube Facade Handler -->
     <script>
@@ -577,6 +576,21 @@
                 });
             });
         });
+        
+        // Lazy load banner video when in view
+        const bannerVideo = document.querySelector('.banner-video');
+        if (bannerVideo && 'IntersectionObserver' in window) {
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && bannerVideo.readyState === 0) {
+                        bannerVideo.load();
+                        videoObserver.unobserve(bannerVideo);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            videoObserver.observe(bannerVideo);
+        }
     </script>
 </body>
 </html>

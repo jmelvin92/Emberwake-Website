@@ -1,0 +1,18 @@
+/* Minimal Font Awesome subset for Emberwake - Only used icons */
+@font-face{font-family:"Font Awesome 6 Brands";font-style:normal;font-weight:400;font-display:swap;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2) format("woff2")}
+.fab{font-family:"Font Awesome 6 Brands"}
+.fab,.fab:before{font-weight:400}
+
+/* Only the icons used on Emberwake site */
+.fa-spotify:before{content:"\f1bc"}
+.fa-apple:before{content:"\f179"}
+.fa-youtube:before{content:"\f167"}
+.fa-soundcloud:before{content:"\f1be"}
+.fa-instagram:before{content:"\f16d"}
+.fa-facebook:before{content:"\f09a"}
+.fa-tiktok:before{content:"\e07b"}
+.fa-discord:before{content:"\f392"}
+
+/* Essential Font Awesome base styles */
+.fab:before{display:inline-block;text-rendering:auto;-webkit-font-smoothing:antialiased}
+.fab{font-family:"Font Awesome 6 Brands";font-weight:400}
