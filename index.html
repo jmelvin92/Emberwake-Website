@@ -391,7 +391,7 @@
             <div class="featured-video">
                 <div class="featured-video-container">
                     <div class="video-wrapper featured">
-                        <iframe data-src="https://www.youtube.com/embed/0bEjbjHbeCE" 
+                        <iframe src="https://www.youtube.com/embed/0bEjbjHbeCE" 
                                 loading="lazy" 
                                 title="Emberwake - Anhedonia (Official Music Video)" 
                                 frameborder="0" 
@@ -536,32 +536,5 @@
     </div>
 
     <script src="script.js" defer></script>
-    
-    <!-- Optimize YouTube iframe loading -->
-    <script>
-        // Lazy load YouTube iframe when scrolling near it
-        if ('IntersectionObserver' in window) {
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const iframe = entry.target;
-                        if (!iframe.src && iframe.dataset.src) {
-                            iframe.src = iframe.dataset.src;
-                            videoObserver.unobserve(iframe);
-                        }
-                    }
-                });
-            }, { rootMargin: '100px' });
-            
-            document.addEventListener('DOMContentLoaded', () => {
-                const youtubeIframe = document.querySelector('.featured-video iframe');
-                if (youtubeIframe) {
-                    youtubeIframe.dataset.src = youtubeIframe.src;
-                    youtubeIframe.src = '';
-                    videoObserver.observe(youtubeIframe);
-                }
-            });
-        }
-    </script>
 </body>
 </html>
