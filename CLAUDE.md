@@ -43,6 +43,58 @@ The website is prepared for these integrations (see placeholders in code):
 - **Streaming**: Update YouTube/Spotify embeds with actual band content
 - **Social Media**: Links in footer need actual URLs
 
+## Performance & SEO Requirements (CRITICAL)
+
+**ALL future development MUST prioritize:**
+
+### PageSpeed Optimization (Target: 90+ scores)
+- **Performance**: 90+ score on pagespeed.web.dev
+- **Best Practices**: 95+ score required
+- **SEO**: Maintain 95+ score
+- **Accessibility**: 90+ score target
+
+### Performance Best Practices (MANDATORY):
+- ✅ Critical CSS must be inlined for above-the-fold content
+- ✅ Fonts loaded asynchronously with fallbacks
+- ✅ Images must have proper dimensions and lazy loading
+- ✅ JavaScript deferred or async when possible
+- ✅ Resource preloading for critical assets only
+- ✅ Minimize render-blocking resources
+- ✅ Optimize video loading (metadata preload, lazy iframes)
+
+### SEO Keyword Strategy (ENFORCE HEAVILY):
+**Primary Keywords (HIGH PRIORITY):**
+- "Emberwake" (brand dominance - #1 priority)
+- "metalcore"
+- "post-hardcore" 
+- "heavy metal"
+- "Nevada metal band"
+- "Reno metalcore"
+
+**Secondary Keywords:**
+- "Anhedonia album"
+- "emotional hardcore"
+- "progressive metalcore"
+- "alternative metal"
+- "metal concerts"
+- "band merchandise"
+
+### SEO Implementation Rules:
+- ✅ Natural keyword density: 1-3% for "Emberwake"
+- ✅ Brand name in title, H1, meta description
+- ✅ Location-based SEO (Reno, Nevada)
+- ✅ Schema markup for MusicGroup, Events, FAQs
+- ✅ Structured data validation required
+- ✅ NO keyword stuffing (avoid spam penalties)
+- ✅ Alt text optimization for all images
+- ✅ Internal linking with keyword anchor text
+
+### Testing Requirements:
+- **BEFORE any commit**: Test on pagespeed.web.dev
+- **Target scores**: Performance 90+, Best Practices 95+
+- **Keyword validation**: Use SEO checker tool at /seo-checker.html
+- **Mobile-first**: Optimize mobile performance priority
+
 ## Important Notes
 
 - No build process or compilation needed - pure static files
@@ -50,6 +102,7 @@ The website is prepared for these integrations (see placeholders in code):
 - Mobile menu uses hamburger toggle with CSS transitions
 - Intersection Observer API used for scroll animations
 - All placeholder content (videos, tour dates, merch) should be replaced with actual band content
+- **CRITICAL**: Every change must maintain or improve PageSpeed scores
 # GLOBAL RULES
 
 ## Objectives
