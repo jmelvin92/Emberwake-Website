@@ -1886,6 +1886,7 @@ h1, h2, h3, h4 {
 
 .footer-contact {
     text-align: right;
+    color: var(--text-gray);
 }
 
 .footer-contact a {
@@ -1897,7 +1898,7 @@ h1, h2, h3, h4 {
     text-align: center;
     padding-top: 2rem;
     border-top: 1px solid var(--border-color);
-    color: var(--text-dark-gray);
+    color: var(--text-gray);
 }
 
 /* Responsive Design - Tablet */
