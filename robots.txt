@@ -1,7 +1,8 @@
-# Robots.txt for Emberwake Band Website
+# Robots.txt for Emberwake Official Website - Emberwake Band
 # https://emberwakeband.com
+# Optimized for Emberwake brand visibility
 
-# Allow all bots to crawl the site
+# Allow all bots to crawl Emberwake content
 User-agent: *
 Allow: /
 Disallow: /admin/

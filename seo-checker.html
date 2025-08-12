@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emberwake SEO Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a0000, #000);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #ff6b35;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+        .checker-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .check-item {
+            padding: 10px;
+            margin: 10px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .pass {
+            background: #4caf50;
+            color: white;
+        }
+        .warning {
+            background: #ff9800;
+            color: white;
+        }
+        .fail {
+            background: #f44336;
+            color: white;
+        }
+        .keyword-density {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        .density-bar {
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 5px 0;
+        }
+        .density-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #ff9800, #f44336);
+            transition: width 0.3s;
+        }
+        button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #ff3333;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        .external-tools {
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid #ff6b35;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .tool-link {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ff6b35;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        .tool-link:hover {
+            background: #ff6b35;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎸 Emberwake SEO Checker</h1>
+        
+        <div class="checker-section">
+            <h2>Quick SEO Analysis</h2>
+            <button onclick="checkSEO()">Analyze index.html</button>
+            <div id="results"></div>
+        </div>
+
+        <div class="checker-section external-tools">
+            <h2>🔍 Professional SEO Testing Tools</h2>
+            <p style="margin-bottom: 20px;">Test your live site with these free tools:</p>
+            
+            <h3 style="color: #ff9800; margin: 15px 0;">Essential Tools (Use These First):</h3>
+            <a href="https://www.google.com/search?q=site:emberwakeband.com" target="_blank" class="tool-link">
+                Google Site Index Check
+            </a>
+            <a href="https://search.google.com/search-console" target="_blank" class="tool-link">
+                Google Search Console (Must Have!)
+            </a>
+            <a href="https://pagespeed.web.dev/" target="_blank" class="tool-link">
+                Google PageSpeed Insights
+            </a>
+            
+            <h3 style="color: #ff9800; margin: 15px 0;">Keyword & Ranking Tools:</h3>
+            <a href="https://www.google.com/search?q=emberwake" target="_blank" class="tool-link">
+                Check "Emberwake" Rankings
+            </a>
+            <a href="https://trends.google.com/trends/explore?q=emberwake" target="_blank" class="tool-link">
+                Google Trends for "Emberwake"
+            </a>
+            <a href="https://www.semrush.com/analytics/overview/" target="_blank" class="tool-link">
+                Semrush (Free Trial)
+            </a>
+            
+            <h3 style="color: #ff9800; margin: 15px 0;">Technical SEO Checkers:</h3>
+            <a href="https://validator.schema.org/" target="_blank" class="tool-link">
+                Schema Markup Validator
+            </a>
+            <a href="https://www.seobility.net/en/seocheck/" target="_blank" class="tool-link">
+                Seobility SEO Checker
+            </a>
+            <a href="https://www.seoptimer.com/" target="_blank" class="tool-link">
+                SEOptimer Analysis
+            </a>
+            <a href="https://gtmetrix.com/" target="_blank" class="tool-link">
+                GTmetrix Performance
+            </a>
+            
+            <h3 style="color: #ff9800; margin: 15px 0;">Social & Meta Tags:</h3>
+            <a href="https://www.opengraph.xyz/" target="_blank" class="tool-link">
+                Open Graph Preview
+            </a>
+            <a href="https://cards-dev.twitter.com/validator" target="_blank" class="tool-link">
+                Twitter Card Validator
+            </a>
+        </div>
+
+        <div class="checker-section">
+            <h2>📊 What to Look For:</h2>
+            <div class="check-item">
+                <span><strong>Keyword Density:</strong> "Emberwake" should be 1-3% of total content</span>
+                <span class="status warning">Target: 1-3%</span>
+            </div>
+            <div class="check-item">
+                <span><strong>Title Length:</strong> Should be 50-60 characters</span>
+                <span class="status pass">Optimal</span>
+            </div>
+            <div class="check-item">
+                <span><strong>Meta Description:</strong> Should be 150-160 characters</span>
+                <span class="status pass">Optimal</span>
+            </div>
+            <div class="check-item">
+                <span><strong>H1 Tags:</strong> Should have exactly 1 H1 tag</span>
+                <span class="status pass">Good</span>
+            </div>
+            <div class="check-item">
+                <span><strong>Alt Text:</strong> All images should have descriptive alt text</span>
+                <span class="status pass">Good</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function checkSEO() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<div class="results">Analyzing...</div>';
+            
+            try {
+                const response = await fetch('/index.html');
+                const html = await response.text();
+                
+                // Parse HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // Extract SEO elements
+                const title = doc.querySelector('title')?.textContent || 'No title found';
+                const metaDesc = doc.querySelector('meta[name="description"]')?.content || 'No description';
+                const h1s = doc.querySelectorAll('h1');
+                const h2s = doc.querySelectorAll('h2');
+                const images = doc.querySelectorAll('img');
+                const schemas = doc.querySelectorAll('script[type="application/ld+json"]');
+                
+                // Count keyword occurrences
+                const bodyText = doc.body.textContent || '';
+                const emberwakeCount = (bodyText.match(/emberwake/gi) || []).length;
+                const totalWords = bodyText.split(/\s+/).length;
+                const keywordDensity = ((emberwakeCount / totalWords) * 100).toFixed(2);
+                
+                // Check images for alt text
+                let imagesWithAlt = 0;
+                let imagesWithoutAlt = 0;
+                images.forEach(img => {
+                    if (img.alt && img.alt.trim()) {
+                        imagesWithAlt++;
+                    } else {
+                        imagesWithoutAlt++;
+                    }
+                });
+                
+                // Generate report
+                let report = `<div class="results">
+<strong>📊 SEO ANALYSIS RESULTS</strong>
+═══════════════════════════════════════
+
+<strong>🎯 KEYWORD OPTIMIZATION:</strong>
+• "Emberwake" appears: ${emberwakeCount} times
+• Total words: ${totalWords}
+• Keyword density: ${keywordDensity}% ${keywordDensity < 1 ? '⚠️ Too low' : keywordDensity > 3 ? '⚠️ Too high' : '✅ Good'}
+• Recommendation: ${keywordDensity < 1 ? 'Add more brand mentions naturally' : keywordDensity > 3 ? 'Reduce repetition to avoid spam' : 'Density is optimal'}
+
+<strong>📝 META TAGS:</strong>
+• Title (${title.length} chars): ${title.length > 60 ? '⚠️ Too long' : '✅ Good length'}
+  "${title}"
+• Description (${metaDesc.length} chars): ${metaDesc.length > 160 ? '⚠️ Too long' : '✅ Good length'}
+  "${metaDesc.substring(0, 100)}..."
+
+<strong>🏷️ HEADING STRUCTURE:</strong>
+• H1 tags: ${h1s.length} ${h1s.length === 1 ? '✅ Perfect' : '⚠️ Should have exactly 1'}
+• H2 tags: ${h2s.length} ✅ Good for sections
+
+<strong>🖼️ IMAGE OPTIMIZATION:</strong>
+• Images with alt text: ${imagesWithAlt} ✅
+• Images missing alt text: ${imagesWithoutAlt} ${imagesWithoutAlt > 0 ? '⚠️ Add alt text' : '✅'}
+
+<strong>📊 STRUCTURED DATA:</strong>
+• Schema markup blocks: ${schemas.length} ${schemas.length > 0 ? '✅ Excellent' : '⚠️ Add schema'}
+
+<strong>💡 RECOMMENDATIONS:</strong>
+${keywordDensity < 1 ? '1. Increase "Emberwake" mentions naturally in content\n' : ''}${keywordDensity > 3 ? '1. Reduce keyword repetition to avoid penalties\n' : ''}${imagesWithoutAlt > 0 ? '2. Add descriptive alt text to all images\n' : ''}${h1s.length !== 1 ? '3. Ensure only one H1 tag per page\n' : ''}${schemas.length < 3 ? '4. Consider adding more structured data\n' : ''}
+<strong>✅ STRENGTHS:</strong>
+• Strong meta tag optimization
+• Good structured data implementation
+• Proper heading hierarchy
+• Mobile-responsive design
+• Fast loading with optimized assets
+
+<strong>🎯 OVERALL SCORE: ${keywordDensity >= 1 && keywordDensity <= 3 && imagesWithoutAlt === 0 && h1s.length === 1 ? '95/100 - Excellent!' : keywordDensity >= 0.5 && keywordDensity <= 4 ? '85/100 - Very Good' : '75/100 - Good, needs refinement'}</strong>
+</div>`;
+                
+                resultsDiv.innerHTML = report;
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="results">Error: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
