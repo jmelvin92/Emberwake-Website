@@ -938,7 +938,7 @@
     </div>
 
     <script>
-        // Dial-up loading simulation
+        // Realistic dial-up loading simulation
         window.addEventListener('DOMContentLoaded', function() {
             const loadingScreen = document.getElementById('loading-screen');
             const mainContent = document.getElementById('main-content');
@@ -946,35 +946,90 @@
             const speedDisplay = document.getElementById('speed');
             const modemSound = document.getElementById('modem-sound');
             
-            // Simulate connection speed
+            // Simulate realistic dial-up connection phases
+            let phase = 0;
+            let progress = 0;
             let speed = 0;
-            const speedInterval = setInterval(() => {
-                speed = Math.min(56600, speed + Math.random() * 15000);
-                speedDisplay.textContent = Math.floor(speed).toLocaleString();
-            }, 100);
             
-            // Modem sound animation
-            const sounds = ['☎ EEEEEEEE-RRRRRR', '📞 KKKKKKKK-SHHHHH', '📠 BEEP-BOOP-BEEP', '💾 CONNECTED!'];
-            let soundIndex = 0;
-            const soundInterval = setInterval(() => {
-                modemSound.textContent = sounds[soundIndex % sounds.length];
-                soundIndex++;
-            }, 800);
+            const phases = [
+                { text: '☎ DIALING...', duration: 400, speedRange: [0, 0] },
+                { text: '📞 CONNECTING...', duration: 300, speedRange: [0, 0] },
+                { text: '🔊 EEEEEEEE-RRRRRR-EEEEEE', duration: 600, speedRange: [0, 28800] },
+                { text: '📠 NEGOTIATING PROTOCOLS...', duration: 400, speedRange: [28800, 33600] },
+                { text: '💻 KKKKKKKK-SHHHHH-EEEEEE', duration: 500, speedRange: [33600, 48000] },
+                { text: '🌐 HANDSHAKE COMPLETE', duration: 300, speedRange: [48000, 56000] },
+                { text: '✅ CONNECTED AT 56K!', duration: 200, speedRange: [56000, 56000] }
+            ];
             
-            // Loading progress
-            setTimeout(() => {
-                loadingBar.style.width = '100%';
-            }, 100);
-            
-            // Show content after "loading"
-            setTimeout(() => {
-                clearInterval(speedInterval);
-                clearInterval(soundInterval);
-                loadingScreen.style.display = 'none';
-                mainContent.style.display = 'block';
+            function runPhase() {
+                if (phase >= phases.length) {
+                    // Connection complete, start loading page
+                    loadingBar.style.width = '0%';
+                    modemSound.textContent = '📊 LOADING METALARCHIVES.ORG...';
+                    
+                    // Simulate faster page loading
+                    let pageProgress = 0;
+                    const loadInterval = setInterval(() => {
+                        // Faster loading pattern
+                        if (Math.random() > 0.5) {
+                            pageProgress += Math.random() * 25; // Bigger bursts
+                        } else {
+                            pageProgress += Math.random() * 10; // Faster trickle
+                        }
+                        
+                        if (pageProgress > 100) pageProgress = 100;
+                        loadingBar.style.width = pageProgress + '%';
+                        
+                        // Update status text during loading
+                        if (pageProgress < 25) {
+                            modemSound.textContent = '📡 RECEIVING HTML...';
+                        } else if (pageProgress < 50) {
+                            modemSound.textContent = '🖼️ LOADING IMAGES...';
+                        } else if (pageProgress < 75) {
+                            modemSound.textContent = '📝 DOWNLOADING CSS...';
+                        } else if (pageProgress < 90) {
+                            modemSound.textContent = '⚡ PARSING JAVASCRIPT...';
+                        } else {
+                            modemSound.textContent = '✨ RENDERING PAGE...';
+                        }
+                        
+                        if (pageProgress >= 100) {
+                            clearInterval(loadInterval);
+                            setTimeout(() => {
+                                loadingScreen.style.display = 'none';
+                                mainContent.style.display = 'block';
+                            }, 200);
+                        }
+                    }, 80 + Math.random() * 120); // Much faster timing
+                    
+                    return;
+                }
                 
-                // Clippy easter egg removed for better UX
-            }, 3000);
+                const currentPhase = phases[phase];
+                modemSound.textContent = currentPhase.text;
+                
+                // Animate connection speed for this phase
+                const startSpeed = currentPhase.speedRange[0];
+                const endSpeed = currentPhase.speedRange[1];
+                const speedStep = (endSpeed - startSpeed) / (currentPhase.duration / 100);
+                
+                const phaseInterval = setInterval(() => {
+                    if (speed < endSpeed) {
+                        speed = Math.min(endSpeed, speed + speedStep + Math.random() * speedStep);
+                        speedDisplay.textContent = Math.floor(speed).toLocaleString();
+                    }
+                }, 100);
+                
+                // Move to next phase
+                setTimeout(() => {
+                    clearInterval(phaseInterval);
+                    phase++;
+                    runPhase();
+                }, currentPhase.duration);
+            }
+            
+            // Start the dial-up sequence
+            runPhase();
             
             // Connection simulation removed to avoid interruptions
             
