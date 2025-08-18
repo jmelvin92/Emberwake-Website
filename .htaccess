@@ -6,10 +6,14 @@ RewriteEngine On
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
 RewriteRule ^ /%1? [NC,L,R=301]
 
-# Internal redirect to add .html for server processing
+# Special handling for biography (redirect to biography-retro.html)
+RewriteRule ^biography/?$ biography-retro.html [NC,L]
+
+# Internal redirect to add .html for server processing (except biography)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteCond %{REQUEST_URI} !^/biography/?$
 RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
 # Handle root index
