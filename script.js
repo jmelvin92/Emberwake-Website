@@ -527,17 +527,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hyper Dopamine PONG Easter Egg
     class HyperPong {
         constructor() {
+            console.log('🎮 Initializing HyperPong...');
+            
             this.canvas = document.getElementById('pong-canvas');
             if (!this.canvas) {
-                console.error('Canvas element not found!');
+                console.error('❌ Canvas element not found!');
                 return;
             }
+            console.log('✅ Canvas found:', this.canvas);
+            
             this.ctx = this.canvas.getContext('2d');
             if (!this.ctx) {
-                console.error('Could not get canvas context!');
+                console.error('❌ Could not get canvas context!');
                 return;
             }
+            console.log('✅ Canvas context obtained');
+            
             this.gameContainer = document.getElementById('pong-game-container');
+            if (!this.gameContainer) {
+                console.error('❌ Game container not found!');
+                return;
+            }
+            console.log('✅ Game container found:', this.gameContainer);
             this.playerScoreEl = document.querySelector('.player-score');
             this.aiScoreEl = document.querySelector('.ai-score');
             this.comboCountEl = document.querySelector('.combo-count');
@@ -759,7 +770,21 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('🎮 PONG GAME STARTING - Version 2.0 Optimized');
             console.log('Container:', this.gameContainer);
             
+            if (!this.gameContainer) {
+                console.error('❌ Cannot start game - game container not found!');
+                // Try to find it again
+                this.gameContainer = document.getElementById('pong-game-container');
+                if (!this.gameContainer) {
+                    console.error('❌ Game container still not found after retry!');
+                    return;
+                }
+                console.log('✅ Game container found on retry:', this.gameContainer);
+            }
+            
+            console.log('Adding active class to game container...');
             this.gameContainer.classList.add('active');
+            console.log('Game container classes:', this.gameContainer.className);
+            
             this.isRunning = true;
             this.isPaused = false;
             
@@ -1529,8 +1554,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const hyperPong = new HyperPong();
         console.log('HyperPong game initialized!');
         
+        // Make pong accessible globally for debugging
+        window.debugPong = hyperPong;
+        window.startPong = () => {
+            console.log('🔧 Manual pong start triggered');
+            if (hyperPong && hyperPong.startGame) {
+                hyperPong.startGame();
+            } else {
+                console.error('❌ Pong game not available');
+            }
+        };
+        
         // Easter egg hint
         console.log('%c🎮 Secret unlocked: Click the logo for a surprise! 🎮', 
                     'color: #ff6600; font-size: 14px; font-weight: bold;');
+        console.log('%c🔧 Debug: Type startPong() in console to test manually', 
+                    'color: #ffaa00; font-size: 12px;');
     }, 100);
 });
