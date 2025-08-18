@@ -2339,9 +2339,40 @@ h1, h2, h3, h4 {
         touch-action: manipulation;
     }
     
-    /* Pong Game Mobile */
-    .pong-game-container {
-        display: none;
+    /* Pong Game Mobile - Enhanced for mobile play */
+    .pong-modal {
+        width: 95vw;
+        height: 85vh;
+        max-width: none;
+        padding: 10px;
+    }
+    
+    #pong-canvas {
+        width: 100%;
+        height: 60vh;
+        max-width: 100%;
+        margin: 40px auto 0;
+        touch-action: none; /* Prevent scrolling on canvas */
+    }
+    
+    .pong-ui {
+        top: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .pong-score {
+        font-size: 2.5rem;
+    }
+    
+    .pong-instructions {
+        bottom: 5px;
+        font-size: 0.8rem;
+    }
+    
+    .pong-close {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
     }
 }
 

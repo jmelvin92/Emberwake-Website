@@ -604,6 +604,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Debug
             this.frameCount = 0;
             
+            // Leaderboard system
+            this.leaderboard = this.loadLeaderboard();
+            this.currentSession = {
+                startTime: Date.now(),
+                gamesPlayed: 0,
+                wins: 0,
+                losses: 0,
+                totalScore: 0,
+                maxComboSession: 0
+            };
+            
             this.initEventListeners();
         }
         
@@ -672,6 +683,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (e.key === 'ArrowUp') this.keys['arrowup'] = false;
                 if (e.key === 'ArrowDown') this.keys['arrowdown'] = false;
             });
+
+            // Enhanced Mobile Touch Controls
+            let touchStartY = 0;
+            let touchCurrentY = 0;
+            let isTouching = false;
+            
+            this.canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                isTouching = true;
+                touchStartY = e.touches[0].clientY;
+                touchCurrentY = touchStartY;
+                this.playerPaddle.glowIntensity = 1;
+            }, { passive: false });
+            
+            this.canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (!isTouching) return;
+                
+                touchCurrentY = e.touches[0].clientY;
+                const canvasRect = this.canvas.getBoundingClientRect();
+                const relativeY = touchCurrentY - canvasRect.top;
+                const canvasScale = this.canvas.height / canvasRect.height;
+                const targetY = (relativeY * canvasScale) - (this.playerPaddle.height / 2);
+                
+                // Smooth paddle movement
+                this.playerPaddle.y = Math.max(0, Math.min(this.canvas.height - this.playerPaddle.height, targetY));
+                this.playerPaddle.glowIntensity = 1;
+            }, { passive: false });
+            
+            this.canvas.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                isTouching = false;
+                this.playerPaddle.glowIntensity = 0.3;
+            }, { passive: false });
         }
         
         startGame() {
@@ -836,6 +881,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         endGame() {
+            // Track game session before ending
+            if (this.isRunning) {
+                this.endGameSession();
+            }
+            
             this.gameContainer.classList.remove('active');
             this.isRunning = false;
             this.keys = {};
@@ -901,10 +951,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.keys['w'] || this.keys['arrowup']) {
                 this.playerPaddle.y = Math.max(0, this.playerPaddle.y - this.playerPaddle.speed);
                 this.playerPaddle.glowIntensity = Math.min(1, this.playerPaddle.glowIntensity + 0.1);
+                this.createPaddleGlow(this.playerPaddle, this.playerPaddle.glowIntensity);
             } else if (this.keys['s'] || this.keys['arrowdown']) {
                 this.playerPaddle.y = Math.min(this.canvas.height - this.playerPaddle.height, 
                                                this.playerPaddle.y + this.playerPaddle.speed);
                 this.playerPaddle.glowIntensity = Math.min(1, this.playerPaddle.glowIntensity + 0.1);
+                this.createPaddleGlow(this.playerPaddle, this.playerPaddle.glowIntensity);
             } else {
                 this.playerPaddle.glowIntensity = Math.max(0, this.playerPaddle.glowIntensity - 0.05);
             }
@@ -1086,7 +1138,54 @@ document.addEventListener('DOMContentLoaded', function() {
                     vx: Math.cos(angle) * speed,
                     vy: Math.sin(angle) * speed,
                     life: 1,
-                    color: color
+                    color: color,
+                    size: 2 + Math.random() * 3,
+                    type: 'explosion'
+                });
+            }
+
+            // Add combo burst effect
+            if (this.combo > 3) {
+                this.createComboBurst(x, y);
+            }
+        }
+
+        createComboBurst(x, y) {
+            const burstCount = Math.min(this.combo, 10);
+            const colors = ['#ff3333', '#ff6600', '#ffff00', '#00ff00', '#00ffff', '#ff00ff'];
+            
+            for (let i = 0; i < burstCount; i++) {
+                const angle = (Math.PI * 2 / burstCount) * i;
+                const speed = 3 + Math.random() * 4;
+                
+                this.particles.push({
+                    x: x,
+                    y: y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    life: 1.5,
+                    color: colors[i % colors.length],
+                    size: 3 + Math.random() * 2,
+                    type: 'combo',
+                    pulsate: true
+                });
+            }
+        }
+
+        createPaddleGlow(paddle, intensity) {
+            if (this.performanceMode === 'performance') return;
+            
+            const glowCount = Math.floor(intensity * 5);
+            for (let i = 0; i < glowCount; i++) {
+                this.particles.push({
+                    x: paddle.x + Math.random() * paddle.width,
+                    y: paddle.y + Math.random() * paddle.height,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: (Math.random() - 0.5) * 2,
+                    life: 0.6,
+                    color: paddle === this.playerPaddle ? '#ff3333' : '#ff6600',
+                    size: 1 + Math.random() * 2,
+                    type: 'glow'
                 });
             }
         }
@@ -1195,11 +1294,37 @@ document.addEventListener('DOMContentLoaded', function() {
             this.drawPaddle(this.playerPaddle, '#ff3333');
             this.drawPaddle(this.aiPaddle, '#ff6600');
             
-            // Draw particles
-            this.particles.forEach(particle => {
+            // Draw particles with enhanced effects
+            this.particles.forEach((particle, index) => {
+                const size = particle.size || 2;
+                let alpha = particle.life;
+                
+                // Pulsating effect for combo particles
+                if (particle.pulsate) {
+                    alpha *= 0.7 + 0.3 * Math.sin(Date.now() * 0.01 + index);
+                }
+                
+                this.ctx.globalAlpha = alpha;
                 this.ctx.fillStyle = particle.color || '#ff3333';
-                this.ctx.globalAlpha = particle.life;
-                this.ctx.fillRect(particle.x - 2, particle.y - 2, 4, 4);
+                
+                // Different drawing styles for different particle types
+                if (particle.type === 'combo') {
+                    // Draw star-like combo particles
+                    this.ctx.save();
+                    this.ctx.translate(particle.x, particle.y);
+                    this.ctx.rotate(Date.now() * 0.001 + index);
+                    this.ctx.fillRect(-size/2, -size/2, size, size);
+                    this.ctx.restore();
+                } else if (particle.type === 'glow') {
+                    // Draw glowing circles for paddle effects
+                    this.ctx.beginPath();
+                    this.ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
+                    this.ctx.fill();
+                } else {
+                    // Default square particles
+                    this.ctx.fillRect(particle.x - size/2, particle.y - size/2, size, size);
+                }
+                
                 this.ctx.globalAlpha = 1;
             });
             
@@ -1231,11 +1356,129 @@ document.addEventListener('DOMContentLoaded', function() {
                 requestAnimationFrame(() => this.gameLoop());
             }, 33); // ~30fps instead of 60fps
         }
+
+        // Leaderboard System Methods
+        loadLeaderboard() {
+            try {
+                const saved = localStorage.getItem('emberwake-pong-leaderboard');
+                return saved ? JSON.parse(saved) : [];
+            } catch (e) {
+                console.warn('Failed to load leaderboard:', e);
+                return [];
+            }
+        }
+
+        saveLeaderboard() {
+            try {
+                localStorage.setItem('emberwake-pong-leaderboard', JSON.stringify(this.leaderboard));
+            } catch (e) {
+                console.warn('Failed to save leaderboard:', e);
+            }
+        }
+
+        addToLeaderboard(score, combo, sessionTime) {
+            const entry = {
+                score: score,
+                combo: combo,
+                time: sessionTime,
+                date: new Date().toLocaleDateString(),
+                timestamp: Date.now()
+            };
+            
+            this.leaderboard.push(entry);
+            this.leaderboard.sort((a, b) => b.score - a.score);
+            this.leaderboard = this.leaderboard.slice(0, 10); // Keep top 10
+            this.saveLeaderboard();
+            
+            // Show achievement if high score
+            if (this.leaderboard[0] === entry) {
+                this.showAchievement('🏆 NEW HIGH SCORE! 🏆');
+            }
+        }
+
+        showAchievement(text) {
+            // Create floating achievement notification
+            const achievement = document.createElement('div');
+            achievement.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(45deg, #ff3333, #ff6600);
+                color: white;
+                padding: 15px 30px;
+                border-radius: 25px;
+                font-family: 'Bebas Neue', sans-serif;
+                font-size: 1.5rem;
+                font-weight: bold;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+                box-shadow: 0 5px 20px rgba(255,51,51,0.6);
+                z-index: 10001;
+                animation: achievementPop 3s ease-out forwards;
+                pointer-events: none;
+            `;
+            achievement.textContent = text;
+            document.body.appendChild(achievement);
+            
+            // Add animation keyframes if not exists
+            if (!document.querySelector('#achievement-animation')) {
+                const style = document.createElement('style');
+                style.id = 'achievement-animation';
+                style.textContent = `
+                    @keyframes achievementPop {
+                        0% { transform: translateX(-50%) scale(0); opacity: 0; }
+                        20% { transform: translateX(-50%) scale(1.2); opacity: 1; }
+                        30% { transform: translateX(-50%) scale(1); }
+                        80% { transform: translateX(-50%) scale(1); opacity: 1; }
+                        100% { transform: translateX(-50%) scale(0.8); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            setTimeout(() => {
+                if (achievement.parentNode) {
+                    achievement.parentNode.removeChild(achievement);
+                }
+            }, 3000);
+        }
+
+        endGameSession() {
+            const sessionTime = Date.now() - this.currentSession.startTime;
+            const finalScore = this.playerScore;
+            
+            // Update session stats
+            this.currentSession.gamesPlayed++;
+            this.currentSession.totalScore += finalScore;
+            this.currentSession.maxComboSession = Math.max(this.currentSession.maxComboSession, this.maxCombo);
+            
+            if (this.playerScore > this.aiScore) {
+                this.currentSession.wins++;
+                this.showAchievement('🎉 VICTORY! 🎉');
+            } else {
+                this.currentSession.losses++;
+            }
+            
+            // Add to leaderboard if significant score
+            if (finalScore >= 3 || this.maxCombo >= 5) {
+                this.addToLeaderboard(finalScore, this.maxCombo, Math.floor(sessionTime / 1000));
+            }
+            
+            // Log session stats for fun
+            console.log('%c🎮 PONG SESSION STATS 🎮', 'color: #ff6600; font-size: 16px; font-weight: bold;');
+            console.log(`Games: ${this.currentSession.gamesPlayed} | W: ${this.currentSession.wins} | L: ${this.currentSession.losses}`);
+            console.log(`Score: ${finalScore} | Max Combo: ${this.maxCombo} | Time: ${Math.floor(sessionTime/1000)}s`);
+            
+            if (this.leaderboard.length > 0) {
+                console.log('%c🏆 TOP SCORES:', 'color: #d4af37; font-weight: bold;');
+                this.leaderboard.slice(0, 3).forEach((entry, i) => {
+                    console.log(`${i + 1}. Score: ${entry.score} | Combo: ${entry.combo} | ${entry.date}`);
+                });
+            }
+        }
     }
     
     // Initialize the game after a short delay to ensure all DOM elements are ready
-    // Temporarily disabled for performance optimization
-    /*
     setTimeout(() => {
         const hyperPong = new HyperPong();
         console.log('HyperPong game initialized!');
@@ -1244,5 +1487,4 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('%c🎮 Secret unlocked: Click the logo for a surprise! 🎮', 
                     'color: #ff6600; font-size: 14px; font-weight: bold;');
     }, 100);
-    */
 });

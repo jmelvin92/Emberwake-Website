@@ -604,6 +604,31 @@
         }
     </script>
 
+    <!-- Hyper Pong Easter Egg Game -->
+    <div class="pong-game-container" id="pong-game-container">
+        <div class="pong-overlay"></div>
+        <div class="pong-modal">
+            <button class="pong-close">&times;</button>
+            <div class="pong-ui">
+                <div class="pong-score">
+                    <span class="player-score">0</span>
+                    <span> - </span>
+                    <span class="ai-score">0</span>
+                </div>
+                <div class="combo-display">
+                    COMBO: <span class="combo-count">0</span>
+                </div>
+                <div class="speed-meter">
+                    <div class="speed-fill"></div>
+                </div>
+            </div>
+            <canvas id="pong-canvas" width="860" height="400"></canvas>
+            <div class="pong-instructions">
+                <p>Desktop: ↑↓ Arrow Keys or W/S | Mobile: Touch & Drag</p>
+                <p>Click logo anytime to play! First to 5 wins!</p>
+            </div>
+        </div>
+    </div>
     
 </body>
 </html>
