@@ -637,8 +637,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const startPongGame = (e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                
+                // Mobile-visible debugging
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                if (isMobile) {
+                    this.showMobileDebug('Logo clicked! Event: ' + e.type);
+                }
+                
                 console.log('Logo clicked - starting Pong game!', 'Event type:', e.type);
-                console.log('Mobile detected:', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+                console.log('Mobile detected:', isMobile);
                 this.startGame();
             };
             
@@ -656,36 +663,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 navLogoImg.style.touchAction = 'manipulation';
             }
 
-            // Mobile failsafe: Add a visible pong trigger for mobile debugging
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            if (isMobile) {
-                console.log('Mobile device detected - adding failsafe pong trigger');
-                
-                // Create a small floating pong button for mobile testing
-                const mobileButton = document.createElement('div');
-                mobileButton.innerHTML = '🎮';
-                mobileButton.style.cssText = `
-                    position: fixed;
-                    top: 80px;
-                    right: 20px;
-                    width: 50px;
-                    height: 50px;
-                    background: rgba(255, 51, 51, 0.9);
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 24px;
-                    z-index: 9999;
-                    cursor: pointer;
-                    touch-action: manipulation;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-                `;
-                
-                mobileButton.addEventListener('click', startPongGame);
-                mobileButton.addEventListener('touchend', startPongGame);
-                document.body.appendChild(mobileButton);
-            }
             
             // Close button
             const closeBtn = document.querySelector('.pong-close');
