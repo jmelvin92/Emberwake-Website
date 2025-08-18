@@ -626,18 +626,54 @@ document.addEventListener('DOMContentLoaded', function() {
             const startPongGame = (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Logo clicked - starting Pong game!');
+                console.log('Logo clicked - starting Pong game!', 'Event type:', e.type);
+                console.log('Mobile detected:', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
                 this.startGame();
             };
             
             if (navLogo) {
                 navLogo.addEventListener('click', startPongGame);
+                navLogo.addEventListener('touchend', startPongGame);
                 navLogo.style.cursor = 'pointer';
+                navLogo.style.touchAction = 'manipulation';
             }
             
             if (navLogoImg) {
                 navLogoImg.addEventListener('click', startPongGame);
+                navLogoImg.addEventListener('touchend', startPongGame);
                 navLogoImg.style.cursor = 'pointer';
+                navLogoImg.style.touchAction = 'manipulation';
+            }
+
+            // Mobile failsafe: Add a visible pong trigger for mobile debugging
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                console.log('Mobile device detected - adding failsafe pong trigger');
+                
+                // Create a small floating pong button for mobile testing
+                const mobileButton = document.createElement('div');
+                mobileButton.innerHTML = '🎮';
+                mobileButton.style.cssText = `
+                    position: fixed;
+                    top: 80px;
+                    right: 20px;
+                    width: 50px;
+                    height: 50px;
+                    background: rgba(255, 51, 51, 0.9);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 24px;
+                    z-index: 9999;
+                    cursor: pointer;
+                    touch-action: manipulation;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                `;
+                
+                mobileButton.addEventListener('click', startPongGame);
+                mobileButton.addEventListener('touchend', startPongGame);
+                document.body.appendChild(mobileButton);
             }
             
             // Close button
@@ -930,15 +966,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         resizeCanvas() {
-            // Set explicit canvas dimensions
-            this.canvas.width = 860;  // Fixed width
-            this.canvas.height = 400; // Fixed height
+            // Mobile-responsive canvas sizing
+            const isMobile = window.innerWidth <= 768;
+            const containerRect = this.canvas.parentElement.getBoundingClientRect();
+            
+            if (isMobile) {
+                // Mobile: Use viewport-relative sizing
+                this.canvas.width = Math.min(containerRect.width - 20, window.innerWidth * 0.9);
+                this.canvas.height = Math.min(400, window.innerHeight * 0.6);
+            } else {
+                // Desktop: Fixed dimensions
+                this.canvas.width = 860;
+                this.canvas.height = 400;
+            }
             
             // Reset context settings after resize
             this.ctx.imageSmoothingEnabled = false;
             this.ctx.globalAlpha = 1;
             
-            console.log('Canvas size set to:', this.canvas.width, 'x', this.canvas.height);
+            console.log('Canvas size set to:', this.canvas.width, 'x', this.canvas.height, 'Mobile:', isMobile);
             
             // Position AI paddle
             this.aiPaddle.x = this.canvas.width - 45;
