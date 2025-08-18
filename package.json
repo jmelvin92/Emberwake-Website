@@ -1,0 +1,24 @@
+{
+  "name": "ew-website",
+  "version": "1.0.0",
+  "description": "A modern, responsive website for the post-hardcore/metalcore band Emberwake, inspired by the visual aesthetic of Lorna Shore's website.",
+  "main": "merch-demo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmelvin92/Emberwake-Website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmelvin92/Emberwake-Website/issues"
+  },
+  "homepage": "https://github.com/jmelvin92/Emberwake-Website#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
