@@ -12,7 +12,7 @@ app.get('/merch', (req, res) => {
 });
 
 app.get('/biography', (req, res) => {
-  res.sendFile(path.join(__dirname, 'biography-retro.html'));
+  res.sendFile(path.join(__dirname, 'biography.html'));
 });
 
 // Root route
@@ -25,7 +25,7 @@ app.get('/merch.html', (req, res) => {
   res.redirect(301, '/merch');
 });
 
-app.get('/biography-retro.html', (req, res) => {
+app.get('/biography.html', (req, res) => {
   res.redirect(301, '/biography');
 });
 
