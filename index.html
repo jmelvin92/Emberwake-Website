@@ -49,9 +49,11 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
     <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#ff3333">
-    <meta name="msapplication-TileColor" content="#ff3333">
+    <link rel="mask-icon" href="/favicon.ico" color="#ff6b35">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="/android-chrome-192x192.png">
     <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="theme-color" content="#ff6b35">
     
     <!-- Performance and Security -->
     <meta name="format-detection" content="telephone=no">
@@ -93,8 +95,11 @@
     <style>
         /* Minimal Font Awesome subset for Emberwake - Only used icons */
         @font-face{font-family:"Font Awesome 6 Brands";font-style:normal;font-weight:400;font-display:swap;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2) format("woff2")}
+        @font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:900;font-display:swap;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2) format("woff2")}
         .fab{font-family:"Font Awesome 6 Brands"}
+        .fas{font-family:"Font Awesome 6 Free";font-weight:900}
         .fab,.fab:before{font-weight:400}
+        .fas,.fas:before{font-weight:900}
         
         /* Only the icons used on Emberwake site */
         .fa-spotify:before{content:"\f1bc"}
@@ -105,10 +110,12 @@
         .fa-facebook:before{content:"\f09a"}
         .fa-tiktok:before{content:"\e07b"}
         .fa-discord:before{content:"\f392"}
+        .fa-shopping-cart:before{content:"\f07a"}
+        .fa-times:before{content:"\f00d"}
+        .fa-trash:before{content:"\f1f8"}
         
         /* Essential Font Awesome base styles */
-        .fab:before{display:inline-block;text-rendering:auto;-webkit-font-smoothing:antialiased}
-        .fab{font-family:"Font Awesome 6 Brands";font-weight:400}
+        .fab:before,.fas:before{display:inline-block;text-rendering:auto;-webkit-font-smoothing:antialiased}
     </style>
     
     <link rel="stylesheet" href="styles.css">
@@ -184,6 +191,30 @@
         "@type": "ContactPoint",
         "contactType": "Booking and General Inquiries",
         "email": "emberwakeband@gmail.com"
+      }
+    }
+    </script>
+
+    <!-- Organization Schema for Logo Recognition -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Emberwake",
+      "url": "https://emberwakeband.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://emberwakeband.com/android-chrome-512x512.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://emberwakeband.com/android-chrome-512x512.png",
+      "description": "Emberwake - Post-Hardcore Metalcore Band from Reno, Nevada",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Reno",
+        "addressRegion": "Nevada",
+        "addressCountry": "US"
       }
     }
     </script>
@@ -325,6 +356,11 @@
       ]
     }
     </script>
+    
+    <!-- Shopify Buy Button SDK - Lazy loaded for performance -->
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.shopify.com">
+    
 </head>
 <body>
     <!-- Navigation -->
@@ -340,7 +376,7 @@
                 <div class="nav-separator"></div>
                 <a href="#tour" class="nav-link">Tour</a>
                 <div class="nav-separator"></div>
-                <a href="#merch" class="nav-link">Merch</a>
+                <a href="merch.html" class="nav-link">Merch</a>
                 <div class="nav-separator"></div>
                 <a href="biography-retro.html" class="nav-link">History</a>
             </div>
@@ -494,13 +530,17 @@
                 <p>Shop exclusive official merchandise and support the band. Browse our collection of t-shirts, hoodies, and limited edition items. All authentic merch ships worldwide with new designs dropping regularly.</p>
             </div>
             
-            <div class="merch-coming-soon">
-                <h3>MERCH COMING SOON</h3>
-                <p>Official merchandise is currently in production.</p>
-                <p>Stay tuned for exclusive designs, limited edition items, and tour merch.
+            <!-- Merch Preview -->
+            <div class="merch-preview" style="text-align: center; padding: 3rem 0;">
+                <div class="merch-coming-soon" style="max-width: 600px; margin: 0 auto;">
+                    <h3 style="font-size: 2.5rem; margin-bottom: 1rem;">🛍️ SHOP NOW AVAILABLE</h3>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem;">Check out our official merchandise store featuring exclusive designs, limited editions, and tour merch.</p>
+                    <a href="merch.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;">Visit Merch Store</a>
+                </div>
             </div>
         </div>
     </section>
+    
 
 
     <!-- Footer -->
@@ -588,5 +628,6 @@
             });
         }
     </script>
+    
 </body>
 </html>
