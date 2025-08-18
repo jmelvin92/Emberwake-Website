@@ -95,6 +95,51 @@ The website is prepared for these integrations (see placeholders in code):
 - **Keyword validation**: Use SEO checker tool at /seo-checker.html
 - **Mobile-first**: Optimize mobile performance priority
 
+## Shopify Merchandise Management
+
+### Adding New Products to Merch Page
+1. **Get Product ID from Shopify:**
+   - Go to Shopify Admin > Products
+   - Click on the product
+   - Copy the product ID from the URL (e.g., `7857539350627`)
+
+2. **Add Product to Website:**
+   - Edit `merch.html` around line 255-261
+   - Find the `products` array
+   - Add new product entry:
+   ```javascript
+   var products = [
+       {
+           id: '7857539350627',
+           category: 'tshirts',
+           name: 'Emberwake T-Shirt'
+       },
+       {
+           id: 'NEW_PRODUCT_ID',
+           category: 'hoodies', // or 'tshirts', 'accessories'  
+           name: 'Product Name'
+       }
+   ];
+   ```
+
+3. **Available Categories:**
+   - `tshirts` - Appears in T-Shirts filter
+   - `hoodies` - Appears in Hoodies filter  
+   - `accessories` - Appears in Accessories filter
+   - All products appear in "Shop All" automatically
+
+4. **Security Requirements:**
+   - Never commit Shopify credentials to public repos
+   - Product IDs are safe to include (read-only, public)
+   - Always validate new products load correctly before deployment
+   - Test category filtering after adding products
+
+### Shopify Integration Details
+- **Store**: `exs5ud-yc.myshopify.com`
+- **Integration**: Embedded Buy Button SDK (not external redirect)
+- **Styling**: Matches site theme (Emberwake colors, Oswald fonts)
+- **Performance**: Products load asynchronously, no impact on PageSpeed scores
+
 ## Important Notes
 
 - No build process or compilation needed - pure static files

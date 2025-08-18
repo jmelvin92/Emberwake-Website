@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Merchandise - Emberwake</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Oswald', sans-serif;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 2px solid #333;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-logo img {
+            height: 50px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #ff6b35;
+        }
+        
+        .nav-separator {
+            width: 1px;
+            height: 20px;
+            background: #333;
+        }
+        
+        
+        /* Category Navigation */
+        .category-nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-btn {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 500;
+            text-transform: uppercase;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: #fff;
+            border: 2px solid #444;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            min-width: 150px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dropdown-btn:hover {
+            background: #ff6b35;
+            border-color: #ff6b35;
+            color: #000;
+        }
+        
+        .dropdown-arrow {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #111;
+            min-width: 100%;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+            z-index: 1000;
+            border: 2px solid #444;
+            border-top: none;
+            top: 100%;
+            left: 0;
+        }
+        
+        .dropdown-content.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background: #ff6b35;
+            color: #000;
+        }
+        
+        .dropdown-item.active {
+            background: #ff6b35;
+            color: #000;
+            font-weight: 600;
+        }
+        
+        /* Anhedonia Hero Banner */
+        .anhedonia-hero {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .anhedonia-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .anhedonia-bg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        
+        /* Mobile Responsive for Anhedonia Hero */
+        @media (max-width: 768px) {
+            .anhedonia-hero {
+                height: 60vh;
+            }
+        }
+        
+        /* Collection Title Section */
+        .collection-title-section {
+            background: #000;
+            padding: 3rem 0;
+            text-align: center;
+            border-bottom: 2px solid #333;
+        }
+        
+        .collection-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            color: #ff6b35;
+            margin: 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        @media (max-width: 768px) {
+            .collection-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 4rem 0;
+            min-height: 600px;
+        }
+        
+        .product-status {
+            text-align: center;
+            color: #888;
+            margin-bottom: 3rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+        }
+        
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product-item {
+            transition: all 0.3s ease;
+        }
+        
+        .product-item.hidden {
+            display: none;
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 4rem;
+            color: #888;
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px dashed #ff6b35;
+            border-radius: 8px;
+        }
+        
+        .loading-message p {
+            font-size: 1.2rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #111;
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 2px solid #333;
+        }
+        
+        .footer-logo img {
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-copyright {
+            color: #888;
+        }
+        
+        /* Custom Product Modal */
+        .product-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+        }
+        
+        .product-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #111;
+            border: 2px solid #ff6b35;
+            border-radius: 8px;
+            max-width: 90vw;
+            max-height: 90vh;
+            width: 800px;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: #ff6b35;
+            margin: 0;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            color: #ff6b35;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .modal-image {
+            text-align: center;
+        }
+        
+        .modal-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        .modal-details h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-price {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            color: #ff6b35;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-description {
+            font-family: 'Inter', sans-serif;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .modal-shopify-embed {
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Mobile Modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95vw;
+                max-height: 95vh;
+            }
+            
+            .modal-body {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .merch-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .category-buttons {
+                padding: 0 1rem;
+            }
+            
+            .category-btn {
+                font-size: 0.9rem;
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .products-container {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="Assets/Emberwake logo alt 2.png" alt="Emberwake">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <div class="nav-separator"></div>
+                <a href="index.html#media" class="nav-link">Media</a>
+                <div class="nav-separator"></div>
+                <a href="index.html#tour" class="nav-link">Tour</a>
+                <div class="nav-separator"></div>
+                <a href="merch.html" class="nav-link active">Merch</a>
+                <div class="nav-separator"></div>
+                <a href="biography-retro.html" class="nav-link">History</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Anhedonia Collection Hero Banner -->
+    <section id="anhedonia-hero" class="anhedonia-hero" style="display: block;">
+        <div class="anhedonia-image">
+            <img src="Assets/Anhedonia Hero Banner.png" alt="Anhedonia Album Artwork" class="anhedonia-bg-image">
+        </div>
+        
+    </section>
+
+    <!-- Collection Title -->
+    <section class="collection-title-section">
+        <div class="container">
+            <h1 class="collection-title">Anhedonia Collection</h1>
+        </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <section class="category-nav">
+        <div class="container">
+            <div class="filter-controls">
+                <!-- Categories Dropdown -->
+                <div class="dropdown">
+                    <button class="dropdown-btn" id="categoryDropdown">
+                        Shop All <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="categoryContent">
+                        <a href="#" class="dropdown-item active" data-category="all">Shop All</a>
+                        <a href="#" class="dropdown-item" data-category="tshirts">T-Shirts</a>
+                        <a href="#" class="dropdown-item" data-category="hoodies">Hoodies</a>
+                        <a href="#" class="dropdown-item" data-category="accessories">Accessories</a>
+                    </div>
+                </div>
+
+                <!-- Collections Dropdown -->
+                <div class="dropdown">
+                    <button class="dropdown-btn" id="collectionsDropdown">
+                        Anhedonia <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="collectionsContent">
+                        <a href="#" class="dropdown-item" data-collection="all">All Collections</a>
+                        <a href="#" class="dropdown-item active" data-collection="anhedonia">Anhedonia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products-section">
+        <div class="container">
+            <div id="product-status" class="product-status">Loading products...</div>
+            
+            <div id="products-container" class="products-container">
+                <!-- Shopify Product Component -->
+                <div id='product-component-1755550896372'></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="Assets/Emberwake logo alt 2.png" alt="Emberwake logo">
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2024 Emberwake. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopify Buy Button Integration -->
+    <script type="text/javascript">
+    /*<![CDATA[*/
+    (function () {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+      if (window.ShopifyBuy) {
+        if (window.ShopifyBuy.UI) {
+          ShopifyBuyInit();
+        } else {
+          loadScript();
+        }
+      } else {
+        loadScript();
+      }
+      function loadScript() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+        script.onload = ShopifyBuyInit;
+      }
+      function ShopifyBuyInit() {
+        var client = ShopifyBuy.buildClient({
+          domain: 'exs5ud-yc.myshopify.com',
+          storefrontAccessToken: 'c2bea99f7a15bf14083f0215d7f6e469',
+        });
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+          // Update status
+          var statusDiv = document.getElementById('product-status');
+          if (statusDiv) {
+            statusDiv.textContent = 'Showing all products';
+          }
+          
+          ui.createComponent('product', {
+            id: '7857539350627',
+            node: document.getElementById('product-component-1755550896372'),
+            moneyFormat: '%24%7B%7Bamount%7D%7D',
+            options: {
+      "product": {
+        "buttonDestination": "modal",
+        "styles": {
+          "product": {
+            "@media (min-width: 601px)": {
+              "max-width": "100%",
+              "margin-left": "0",
+              "margin-bottom": "50px"
+            },
+            "text-align": "left"
+          },
+          "title": {
+            "font-size": "26px",
+            "color": "#ffffff",
+            "font-family": "Oswald, sans-serif"
+          },
+          "price": {
+            "font-size": "18px",
+            "color": "#ff6b35",
+            "font-family": "Oswald, sans-serif"
+          },
+          "compareAt": {
+            "font-size": "15.299999999999999px"
+          },
+          "unitPrice": {
+            "font-size": "15.299999999999999px"
+          },
+          "button": {
+            "font-family": "Oswald, sans-serif",
+            "font-weight": "bold",
+            ":hover": {
+              "background-color": "#ff6b35"
+            },
+            "background-color": "#ff3333",
+            ":focus": {
+              "background-color": "#ff6b35"
+            },
+            "border-radius": "0px"
+          }
+        },
+        "layout": "vertical",
+        "contents": {
+          "img": true,
+          "imgWithCarousel": false,
+          "title": true,
+          "price": true,
+          "description": false,
+          "options": false,
+          "button": true
+        },
+        "width": "100%",
+        "text": {
+          "button": "View Details"
+        }
+      },
+      "productSet": {
+        "styles": {
+          "products": {
+            "@media (min-width: 601px)": {
+              "margin-left": "-20px"
+            }
+          }
+        }
+      },
+      "modalProduct": {
+        "contents": {
+          "img": true,
+          "imgWithCarousel": false,
+          "button": false,
+          "buttonWithQuantity": true,
+          "description": true,
+          "title": true,
+          "price": true
+        },
+        "styles": {
+          "product": {
+            "@media (min-width: 601px)": {
+              "max-width": "100%",
+              "margin-left": "0px",
+              "margin-bottom": "0px"
+            }
+          },
+          "title": {
+            "font-family": "Bebas Neue, sans-serif",
+            "font-weight": "bold",
+            "font-size": "26px",
+            "color": "#333333"
+          },
+          "price": {
+            "font-family": "Oswald, sans-serif",
+            "font-weight": "normal",
+            "font-size": "18px",
+            "color": "#ff6b35"
+          },
+          "compareAt": {
+            "font-family": "Helvetica Neue, sans-serif",
+            "font-weight": "normal",
+            "font-size": "15.299999999999999px",
+            "color": "#4c4c4c"
+          },
+          "unitPrice": {
+            "font-family": "Helvetica Neue, sans-serif",
+            "font-weight": "normal",
+            "font-size": "15.299999999999999px",
+            "color": "#4c4c4c"
+          },
+          "button": {
+            "font-family": "Oswald, sans-serif",
+            "font-weight": "bold",
+            ":hover": {
+              "background-color": "#ff6b35"
+            },
+            "background-color": "#ff3333",
+            ":focus": {
+              "background-color": "#ff6b35"
+            },
+            "border-radius": "0px"
+          }
+        },
+        "text": {
+          "button": "Add to cart"
+        }
+      },
+      "option": {},
+      "cart": {
+        "text": {
+          "total": "Subtotal",
+          "button": "Checkout"
+        },
+        "popup": false,
+        "styles": {
+          "button": {
+            "font-family": "Oswald, sans-serif",
+            "background-color": "#ff3333",
+            ":hover": {
+              "background-color": "#ff6b35"
+            }
+          }
+        }
+      },
+      "toggle": {}
+    },
+          });
+        });
+      }
+    })();
+    /*]]>*/
+    </script>
+
+    <!-- Dropdown and Filter JavaScript -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dropdown functionality
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const btn = dropdown.querySelector('.dropdown-btn');
+            const content = dropdown.querySelector('.dropdown-content');
+            const items = dropdown.querySelectorAll('.dropdown-item');
+            
+            // Toggle dropdown
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                // Close other dropdowns
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                        otherDropdown.querySelector('.dropdown-content').classList.remove('show');
+                    }
+                });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('active');
+                content.classList.toggle('show');
+            });
+            
+            // Handle item selection
+            items.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active state
+                    items.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update button text (remove arrow first)
+                    const arrow = btn.querySelector('.dropdown-arrow');
+                    btn.innerHTML = this.textContent + ' ';
+                    btn.appendChild(arrow);
+                    
+                    // Close dropdown
+                    dropdown.classList.remove('active');
+                    content.classList.remove('show');
+                    
+                    // Handle filtering
+                    handleFilter();
+                });
+            });
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function() {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+                dropdown.querySelector('.dropdown-content').classList.remove('show');
+            });
+        });
+        
+        // Filter handling function
+        function handleFilter() {
+            const categoryActive = document.querySelector('#categoryContent .dropdown-item.active');
+            const collectionActive = document.querySelector('#collectionsContent .dropdown-item.active');
+            
+            const selectedCategory = categoryActive ? categoryActive.dataset.category : 'all';
+            const selectedCollection = collectionActive ? collectionActive.dataset.collection : 'all';
+            
+            // Handle Anhedonia hero banner visibility
+            const anhedoniaHero = document.getElementById('anhedonia-hero');
+            if (anhedoniaHero) {
+                if (selectedCollection === 'anhedonia') {
+                    anhedoniaHero.style.display = 'block';
+                } else {
+                    anhedoniaHero.style.display = 'none';
+                }
+            }
+            
+            // Update product status
+            const statusDiv = document.getElementById('product-status');
+            if (statusDiv) {
+                let statusText = 'Showing ';
+                
+                if (selectedCollection !== 'all') {
+                    statusText += selectedCollection.charAt(0).toUpperCase() + selectedCollection.slice(1) + ' collection ';
+                }
+                
+                if (selectedCategory === 'tshirts') {
+                    statusText += 'T-Shirts';
+                } else if (selectedCategory === 'hoodies') {
+                    statusText += 'Hoodies';
+                } else if (selectedCategory === 'accessories') {
+                    statusText += 'Accessories';
+                } else {
+                    statusText += 'all products';
+                }
+                
+                statusDiv.textContent = statusText;
+            }
+            
+            // Handle product visibility
+            const productContainer = document.getElementById('product-component-1755550896372');
+            const productsContainer = document.getElementById('products-container');
+            
+            if (productContainer && productsContainer) {
+                // For now, since we only have one product (T-shirt), show/hide based on category
+                if (selectedCategory === 'all' || selectedCategory === 'tshirts') {
+                    productContainer.style.display = 'block';
+                    // Remove any "no products" message
+                    const noProductsMsg = productsContainer.querySelector('.no-products-message');
+                    if (noProductsMsg) {
+                        noProductsMsg.remove();
+                    }
+                } else {
+                    productContainer.style.display = 'none';
+                    // Show "coming soon" message for empty categories
+                    let noProductsMsg = productsContainer.querySelector('.no-products-message');
+                    if (!noProductsMsg) {
+                        noProductsMsg = document.createElement('div');
+                        noProductsMsg.className = 'no-products-message';
+                        noProductsMsg.style.cssText = 'text-align: center; padding: 4rem; color: #888; background: rgba(255, 107, 53, 0.1); border: 2px dashed #ff6b35; border-radius: 8px; margin: 2rem 0;';
+                        
+                        const categoryName = selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
+                        noProductsMsg.innerHTML = `
+                            <h3 style="color: #ff6b35; margin-bottom: 1rem; font-family: 'Bebas Neue', sans-serif; font-size: 2rem;">
+                                ${categoryName} Coming Soon
+                            </h3>
+                            <p style="font-size: 1.1rem;">
+                                We're working on some amazing ${categoryName.toLowerCase()} designs. Check back soon!
+                            </p>
+                        `;
+                        productsContainer.appendChild(noProductsMsg);
+                    }
+                }
+            }
+            
+            console.log('Filter applied:', { category: selectedCategory, collection: selectedCollection });
+        }
+    });
+    </script>
+</body>
+</html>
