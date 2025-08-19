@@ -638,14 +638,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                // Mobile-visible debugging
-                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                if (isMobile) {
-                    this.showMobileDebug('Logo clicked! Event: ' + e.type);
-                }
+                // Mobile alert test
+                alert('Logo clicked! Starting pong...');
                 
                 console.log('Logo clicked - starting Pong game!', 'Event type:', e.type);
-                console.log('Mobile detected:', isMobile);
                 this.startGame();
             };
             
