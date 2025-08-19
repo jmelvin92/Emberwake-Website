@@ -33,8 +33,9 @@ app.get('/index.html', (req, res) => {
   res.redirect(301, '/');
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`🚀 Server running at http://localhost:${port}`);
+  console.log(`📱 Mobile access: http://192.168.68.51:${port}`);
   console.log('✅ Clean URLs enabled:');
   console.log(`   - http://localhost:${port}/`);
   console.log(`   - http://localhost:${port}/merch`);

@@ -466,8 +466,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Initialize newsletter signup
-    createNewsletterSignup();
+    // Initialize newsletter signup - DISABLED until email marketing is set up
+    // createNewsletterSignup();
 
     // Simplified custom cursor for better performance
     const cursor = document.createElement('div');
@@ -638,10 +638,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                // Mobile alert test
-                alert('Logo clicked! Starting pong...');
-                
                 console.log('Logo clicked - starting Pong game!', 'Event type:', e.type);
+                
+                // Ensure game container exists
+                if (!this.gameContainer) {
+                    this.gameContainer = document.getElementById('pong-game-container');
+                }
+                
+                if (!this.canvas) {
+                    this.canvas = document.getElementById('pong-canvas');
+                    if (this.canvas) {
+                        this.ctx = this.canvas.getContext('2d');
+                    }
+                }
+                
                 this.startGame();
             };
             
@@ -663,7 +673,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Close button
             const closeBtn = document.querySelector('.pong-close');
             if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
+                closeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.endGame();
+                });
+                closeBtn.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     this.endGame();
                 });
             }
@@ -671,7 +688,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Overlay click to close
             const overlay = document.querySelector('.pong-overlay');
             if (overlay) {
-                overlay.addEventListener('click', () => {
+                overlay.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     this.endGame();
                 });
             }
@@ -756,7 +775,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             console.log('Adding active class to game container...');
             this.gameContainer.classList.add('active');
+            // Force display on mobile
+            this.gameContainer.style.display = 'block';
+            this.gameContainer.style.zIndex = '10001';
             console.log('Game container classes:', this.gameContainer.className);
+            
+            // Ensure canvas and context are initialized
+            if (!this.canvas) {
+                this.canvas = document.getElementById('pong-canvas');
+                this.ctx = this.canvas.getContext('2d');
+            }
             
             this.isRunning = true;
             this.isPaused = false;
@@ -915,17 +943,106 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         endGame() {
-            // Track game session before ending
-            if (this.isRunning) {
-                this.endGameSession();
-            }
+            console.log('Ending game...');
             
-            this.gameContainer.classList.remove('active');
+            // DEBUG: Log current page dimensions
+            console.log('BEFORE CLEANUP:');
+            console.log('Body width:', document.body.scrollWidth);
+            console.log('Body offsetWidth:', document.body.offsetWidth);
+            console.log('Document width:', document.documentElement.scrollWidth);
+            console.log('Window width:', window.innerWidth);
+            console.log('Body style:', document.body.style.cssText);
+            console.log('HTML style:', document.documentElement.style.cssText);
+            
+            // Stop the game loop first
             this.isRunning = false;
+            this.isPaused = false;
             this.keys = {};
             
+            // Track game session before ending
+            try {
+                if (this.playerScore > 0 || this.aiScore > 0) {
+                    this.endGameSession();
+                }
+            } catch (error) {
+                console.error('Error ending game session:', error);
+            }
+            
+            // Reset canvas dimensions to prevent overflow
+            if (this.canvas) {
+                this.canvas.width = 0;
+                this.canvas.height = 0;
+                this.canvas.style.width = '0';
+                this.canvas.style.height = '0';
+            }
+            
+            // Hide and fully reset the game container
+            if (this.gameContainer) {
+                this.gameContainer.classList.remove('active');
+                // Remove ALL inline styles that were added
+                this.gameContainer.removeAttribute('style');
+                // Re-apply only the hidden state
+                this.gameContainer.style.display = 'none';
+            }
+            
+            // Reset body/html to original mobile-safe state
+            document.body.style.overflow = '';
+            document.body.style.overflowX = 'hidden';
+            document.body.style.width = '';
+            document.body.style.maxWidth = '100vw';
+            
+            document.documentElement.style.overflow = '';
+            document.documentElement.style.overflowX = 'hidden';
+            document.documentElement.style.width = '';
+            document.documentElement.style.maxWidth = '100vw';
+            
+            // Force a reflow to ensure layout updates
+            void document.body.offsetHeight;
+            
+            // Nuclear option: Reset viewport meta tag on mobile
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                const viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    // Reset viewport to original settings
+                    viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes';
+                    // Force re-apply after a tick
+                    setTimeout(() => {
+                        viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes';
+                    }, 10);
+                }
+                
+                // Scroll to top-left to reset any viewport offset
+                window.scrollTo(0, 0);
+            }
+            
             // Resume background elements
-            this.resumeBackgroundElements();
+            try {
+                this.resumeBackgroundElements();
+            } catch (error) {
+                console.error('Error resuming background:', error);
+            }
+            
+            console.log('Game ended successfully');
+            
+            // DEBUG: Log AFTER cleanup
+            setTimeout(() => {
+                console.log('AFTER CLEANUP:');
+                console.log('Body width:', document.body.scrollWidth);
+                console.log('Body offsetWidth:', document.body.offsetWidth);
+                console.log('Document width:', document.documentElement.scrollWidth);
+                console.log('Window width:', window.innerWidth);
+                console.log('Body style:', document.body.style.cssText);
+                console.log('HTML style:', document.documentElement.style.cssText);
+                
+                // Check for elements causing overflow
+                const allElements = document.querySelectorAll('*');
+                allElements.forEach(el => {
+                    if (el.scrollWidth > window.innerWidth) {
+                        console.log('OVERFLOW ELEMENT FOUND:', el, 'Width:', el.scrollWidth);
+                    }
+                });
+            }, 100);
         }
         
         togglePause() {
@@ -966,12 +1083,18 @@ document.addEventListener('DOMContentLoaded', function() {
         resizeCanvas() {
             // Mobile-responsive canvas sizing
             const isMobile = window.innerWidth <= 768;
-            const containerRect = this.canvas.parentElement.getBoundingClientRect();
             
             if (isMobile) {
-                // Mobile: Use viewport-relative sizing
-                this.canvas.width = Math.min(containerRect.width - 20, window.innerWidth * 0.9);
-                this.canvas.height = Math.min(400, window.innerHeight * 0.6);
+                // Mobile: STRICTLY limit to viewport width to prevent overflow
+                const maxWidth = window.innerWidth - 40; // Leave some padding
+                const maxHeight = window.innerHeight * 0.6;
+                
+                this.canvas.width = Math.min(maxWidth, 340); // Cap at reasonable mobile width
+                this.canvas.height = Math.min(maxHeight, 400);
+                
+                // Ensure canvas style doesn't exceed viewport
+                this.canvas.style.maxWidth = '100%';
+                this.canvas.style.width = '100%';
             } else {
                 // Desktop: Fixed dimensions
                 this.canvas.width = 860;
