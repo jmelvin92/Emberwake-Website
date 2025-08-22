@@ -8,11 +8,17 @@ This is the official website for Emberwake, a post-hardcore/metalcore band. It's
 
 ## Development Commands
 
-**Start local development server:**
+**Start local development server with clean URLs:**
+```bash
+python3 dev-server.py
+```
+Then open http://localhost:8000 in your browser.
+
+**Alternative (basic server without clean URLs):**
 ```bash
 python3 -m http.server 8000
 ```
-Then open http://localhost:8000 in your browser.
+Note: The basic server doesn't support clean URLs (/merch instead of /merch.html)
 
 ## Architecture & Structure
 

@@ -461,9 +461,9 @@
                 <div class="nav-separator"></div>
                 <a href="/#tour" class="nav-link">Tour</a>
                 <div class="nav-separator"></div>
-                <a href="merch" class="nav-link active">Merch</a>
+                <a href="/merch" class="nav-link active">Merch</a>
                 <div class="nav-separator"></div>
-                <a href="biography" class="nav-link">History</a>
+                <a href="/history" class="nav-link">History</a>
             </div>
         </div>
     </nav>
@@ -508,6 +508,7 @@
                     <div class="dropdown-content" id="collectionsContent">
                         <a href="#" class="dropdown-item" data-collection="all">All Collections</a>
                         <a href="#" class="dropdown-item active" data-collection="anhedonia">Anhedonia</a>
+                        <a href="#" class="dropdown-item" data-collection="classic">Classic</a>
                     </div>
                 </div>
             </div>
@@ -520,8 +521,12 @@
             <div id="product-status" class="product-status">Loading products...</div>
             
             <div id="products-container" class="products-container">
-                <!-- Shopify Product Component -->
-                <div id='product-component-1755550896372'></div>
+                <!-- Anhedonia Collection Product -->
+                <div id='product-component-1755550896372' data-collection="anhedonia" data-category="tshirts" class="product-item"></div>
+                
+                <!-- Classic Collection Products -->
+                <div id='product-component-1755878881292' data-collection="classic" data-category="tshirts" class="product-item"></div>
+                <div id='product-component-1755878942121' data-collection="classic" data-category="tshirts" class="product-item"></div>
             </div>
         </div>
     </section>
@@ -574,6 +579,368 @@
           ui.createComponent('product', {
             id: '7857539350627',
             node: document.getElementById('product-component-1755550896372'),
+            moneyFormat: '%24%7B%7Bamount%7D%7D',
+            options: {
+      "product": {
+        "buttonDestination": "modal",
+        "styles": {
+          "product": {
+            "@media (min-width: 601px)": {
+              "max-width": "100%",
+              "margin-left": "0",
+              "margin-bottom": "50px"
+            },
+            "text-align": "left"
+          },
+          "title": {
+            "font-size": "26px",
+            "color": "#ffffff",
+            "font-family": "Oswald, sans-serif"
+          },
+          "price": {
+            "font-size": "18px",
+            "color": "#ff6b35",
+            "font-family": "Oswald, sans-serif"
+          },
+          "compareAt": {
+            "font-size": "15.299999999999999px"
+          },
+          "unitPrice": {
+            "font-size": "15.299999999999999px"
+          },
+          "button": {
+            "font-family": "Oswald, sans-serif",
+            "font-weight": "bold",
+            ":hover": {
+              "background-color": "#ff6b35"
+            },
+            "background-color": "#ff3333",
+            ":focus": {
+              "background-color": "#ff6b35"
+            },
+            "border-radius": "0px"
+          }
+        },
+        "layout": "vertical",
+        "contents": {
+          "img": true,
+          "imgWithCarousel": false,
+          "title": true,
+          "price": true,
+          "description": false,
+          "options": false,
+          "button": true
+        },
+        "width": "100%",
+        "text": {
+          "button": "View Details"
+        }
+      },
+      "productSet": {
+        "styles": {
+          "products": {
+            "@media (min-width: 601px)": {
+              "margin-left": "-20px"
+            }
+          }
+        }
+      },
+      "modalProduct": {
+        "contents": {
+          "img": true,
+          "imgWithCarousel": false,
+          "button": false,
+          "buttonWithQuantity": true,
+          "description": true,
+          "title": true,
+          "price": true
+        },
+        "styles": {
+          "product": {
+            "@media (min-width: 601px)": {
+              "max-width": "100%",
+              "margin-left": "0px",
+              "margin-bottom": "0px"
+            }
+          },
+          "title": {
+            "font-family": "Bebas Neue, sans-serif",
+            "font-weight": "bold",
+            "font-size": "26px",
+            "color": "#333333"
+          },
+          "price": {
+            "font-family": "Oswald, sans-serif",
+            "font-weight": "normal",
+            "font-size": "18px",
+            "color": "#ff6b35"
+          },
+          "compareAt": {
+            "font-family": "Helvetica Neue, sans-serif",
+            "font-weight": "normal",
+            "font-size": "15.299999999999999px",
+            "color": "#4c4c4c"
+          },
+          "unitPrice": {
+            "font-family": "Helvetica Neue, sans-serif",
+            "font-weight": "normal",
+            "font-size": "15.299999999999999px",
+            "color": "#4c4c4c"
+          },
+          "button": {
+            "font-family": "Oswald, sans-serif",
+            "font-weight": "bold",
+            ":hover": {
+              "background-color": "#ff6b35"
+            },
+            "background-color": "#ff3333",
+            ":focus": {
+              "background-color": "#ff6b35"
+            },
+            "border-radius": "0px"
+          }
+        },
+        "text": {
+          "button": "Add to cart"
+        }
+      },
+      "option": {},
+      "cart": {
+        "text": {
+          "total": "Subtotal",
+          "button": "Checkout"
+        },
+        "popup": false,
+        "styles": {
+          "button": {
+            "font-family": "Oswald, sans-serif",
+            "background-color": "#ff3333",
+            ":hover": {
+              "background-color": "#ff6b35"
+            }
+          }
+        }
+      },
+      "toggle": {}
+    },
+          });
+        });
+      }
+    })();
+    /*]]>*/
+    </script>
+
+    <!-- Classic Collection Product 1 -->
+    <script type="text/javascript">
+    /*<![CDATA[*/
+    (function () {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+      if (window.ShopifyBuy) {
+        if (window.ShopifyBuy.UI) {
+          ShopifyBuyInit2();
+        } else {
+          loadScript2();
+        }
+      } else {
+        loadScript2();
+      }
+      function loadScript2() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+        script.onload = ShopifyBuyInit2;
+      }
+      function ShopifyBuyInit2() {
+        var client = ShopifyBuy.buildClient({
+          domain: 'exs5ud-yc.myshopify.com',
+          storefrontAccessToken: 'c2bea99f7a15bf14083f0215d7f6e469',
+        });
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+          ui.createComponent('product', {
+            id: '7859134136419',
+            node: document.getElementById('product-component-1755878881292'),
+            moneyFormat: '%24%7B%7Bamount%7D%7D',
+            options: {
+      "product": {
+        "buttonDestination": "modal",
+        "styles": {
+          "product": {
+            "@media (min-width: 601px)": {
+              "max-width": "100%",
+              "margin-left": "0",
+              "margin-bottom": "50px"
+            },
+            "text-align": "left"
+          },
+          "title": {
+            "font-size": "26px",
+            "color": "#ffffff",
+            "font-family": "Oswald, sans-serif"
+          },
+          "price": {
+            "font-size": "18px",
+            "color": "#ff6b35",
+            "font-family": "Oswald, sans-serif"
+          },
+          "compareAt": {
+            "font-size": "15.299999999999999px"
+          },
+          "unitPrice": {
+            "font-size": "15.299999999999999px"
+          },
+          "button": {
+            "font-family": "Oswald, sans-serif",
+            "font-weight": "bold",
+            ":hover": {
+              "background-color": "#ff6b35"
+            },
+            "background-color": "#ff3333",
+            ":focus": {
+              "background-color": "#ff6b35"
+            },
+            "border-radius": "0px"
+          }
+        },
+        "layout": "vertical",
+        "contents": {
+          "img": true,
+          "imgWithCarousel": false,
+          "title": true,
+          "price": true,
+          "description": false,
+          "options": false,
+          "button": true
+        },
+        "width": "100%",
+        "text": {
+          "button": "View Details"
+        }
+      },
+      "productSet": {
+        "styles": {
+          "products": {
+            "@media (min-width: 601px)": {
+              "margin-left": "-20px"
+            }
+          }
+        }
+      },
+      "modalProduct": {
+        "contents": {
+          "img": true,
+          "imgWithCarousel": false,
+          "button": false,
+          "buttonWithQuantity": true,
+          "description": true,
+          "title": true,
+          "price": true
+        },
+        "styles": {
+          "product": {
+            "@media (min-width: 601px)": {
+              "max-width": "100%",
+              "margin-left": "0px",
+              "margin-bottom": "0px"
+            }
+          },
+          "title": {
+            "font-family": "Bebas Neue, sans-serif",
+            "font-weight": "bold",
+            "font-size": "26px",
+            "color": "#333333"
+          },
+          "price": {
+            "font-family": "Oswald, sans-serif",
+            "font-weight": "normal",
+            "font-size": "18px",
+            "color": "#ff6b35"
+          },
+          "compareAt": {
+            "font-family": "Helvetica Neue, sans-serif",
+            "font-weight": "normal",
+            "font-size": "15.299999999999999px",
+            "color": "#4c4c4c"
+          },
+          "unitPrice": {
+            "font-family": "Helvetica Neue, sans-serif",
+            "font-weight": "normal",
+            "font-size": "15.299999999999999px",
+            "color": "#4c4c4c"
+          },
+          "button": {
+            "font-family": "Oswald, sans-serif",
+            "font-weight": "bold",
+            ":hover": {
+              "background-color": "#ff6b35"
+            },
+            "background-color": "#ff3333",
+            ":focus": {
+              "background-color": "#ff6b35"
+            },
+            "border-radius": "0px"
+          }
+        },
+        "text": {
+          "button": "Add to cart"
+        }
+      },
+      "option": {},
+      "cart": {
+        "text": {
+          "total": "Subtotal",
+          "button": "Checkout"
+        },
+        "popup": false,
+        "styles": {
+          "button": {
+            "font-family": "Oswald, sans-serif",
+            "background-color": "#ff3333",
+            ":hover": {
+              "background-color": "#ff6b35"
+            }
+          }
+        }
+      },
+      "toggle": {}
+    },
+          });
+        });
+      }
+    })();
+    /*]]>*/
+    </script>
+
+    <!-- Classic Collection Product 2 -->
+    <script type="text/javascript">
+    /*<![CDATA[*/
+    (function () {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+      if (window.ShopifyBuy) {
+        if (window.ShopifyBuy.UI) {
+          ShopifyBuyInit3();
+        } else {
+          loadScript3();
+        }
+      } else {
+        loadScript3();
+      }
+      function loadScript3() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+        script.onload = ShopifyBuyInit3;
+      }
+      function ShopifyBuyInit3() {
+        var client = ShopifyBuy.buildClient({
+          domain: 'exs5ud-yc.myshopify.com',
+          storefrontAccessToken: 'c2bea99f7a15bf14083f0215d7f6e469',
+        });
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+          ui.createComponent('product', {
+            id: '7859135479907',
+            node: document.getElementById('product-component-1755878942121'),
             moneyFormat: '%24%7B%7Bamount%7D%7D',
             options: {
       "product": {
@@ -826,38 +1193,77 @@
             }
             
             // Handle product visibility
-            const productContainer = document.getElementById('product-component-1755550896372');
             const productsContainer = document.getElementById('products-container');
+            const allProducts = document.querySelectorAll('.product-item');
             
-            if (productContainer && productsContainer) {
-                // For now, since we only have one product (T-shirt), show/hide based on category
-                if (selectedCategory === 'all' || selectedCategory === 'tshirts') {
-                    productContainer.style.display = 'block';
-                    // Remove any "no products" message
-                    const noProductsMsg = productsContainer.querySelector('.no-products-message');
-                    if (noProductsMsg) {
-                        noProductsMsg.remove();
+            if (productsContainer && allProducts) {
+                // Remove any existing "no products" message
+                const existingMsg = productsContainer.querySelector('.no-products-message');
+                if (existingMsg) {
+                    existingMsg.remove();
+                }
+                
+                // Filter products based on collection and category
+                let visibleCount = 0;
+                allProducts.forEach(product => {
+                    const productCollection = product.dataset.collection;
+                    const productCategory = product.dataset.category;
+                    
+                    // Determine if product should be visible
+                    let shouldShow = false;
+                    
+                    // Check collection filter
+                    if (selectedCollection === 'all' || selectedCollection === productCollection) {
+                        // Check category filter (only applies to products with categories)
+                        if (selectedCategory === 'all') {
+                            shouldShow = true;
+                        } else if (productCategory) {
+                            shouldShow = productCategory === selectedCategory;
+                        } else {
+                            // Products without category are shown for 'all' category only
+                            shouldShow = selectedCategory === 'all';
+                        }
                     }
-                } else {
-                    productContainer.style.display = 'none';
-                    // Show "coming soon" message for empty categories
-                    let noProductsMsg = productsContainer.querySelector('.no-products-message');
-                    if (!noProductsMsg) {
-                        noProductsMsg = document.createElement('div');
-                        noProductsMsg.className = 'no-products-message';
-                        noProductsMsg.style.cssText = 'text-align: center; padding: 4rem; color: #888; background: rgba(255, 107, 53, 0.1); border: 2px dashed #ff6b35; border-radius: 8px; margin: 2rem 0;';
-                        
-                        const categoryName = selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
-                        noProductsMsg.innerHTML = `
-                            <h3 style="color: #ff6b35; margin-bottom: 1rem; font-family: 'Bebas Neue', sans-serif; font-size: 2rem;">
-                                ${categoryName} Coming Soon
-                            </h3>
-                            <p style="font-size: 1.1rem;">
-                                We're working on some amazing ${categoryName.toLowerCase()} designs. Check back soon!
-                            </p>
-                        `;
-                        productsContainer.appendChild(noProductsMsg);
+                    
+                    // Show/hide the product
+                    if (shouldShow) {
+                        product.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        product.style.display = 'none';
                     }
+                });
+                
+                // If no products are visible, show appropriate message
+                if (visibleCount === 0) {
+                    const noProductsMsg = document.createElement('div');
+                    noProductsMsg.className = 'no-products-message';
+                    noProductsMsg.style.cssText = 'text-align: center; padding: 4rem; color: #888; background: rgba(255, 107, 53, 0.1); border: 2px dashed #ff6b35; border-radius: 8px; margin: 2rem 0;';
+                    
+                    let messageTitle = '';
+                    let messageText = '';
+                    
+                    if (selectedCategory !== 'all') {
+                        // Specific category selected
+                        const categoryName = selectedCategory === 'tshirts' ? 'T-Shirts' : 
+                                           selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
+                        messageTitle = `${categoryName} Coming Soon`;
+                        messageText = `We're working on amazing ${categoryName.toLowerCase()} for this collection. Check back soon!`;
+                    } else {
+                        // All categories, but specific collection
+                        messageTitle = 'More Products Coming Soon';
+                        messageText = 'We\'re adding more items to this collection. Check back soon!';
+                    }
+                    
+                    noProductsMsg.innerHTML = `
+                        <h3 style="color: #ff6b35; margin-bottom: 1rem; font-family: 'Bebas Neue', sans-serif; font-size: 2rem;">
+                            ${messageTitle}
+                        </h3>
+                        <p style="font-size: 1.1rem;">
+                            ${messageText}
+                        </p>
+                    `;
+                    productsContainer.appendChild(noProductsMsg);
                 }
             }
             

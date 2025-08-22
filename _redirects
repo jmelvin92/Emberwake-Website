@@ -1,0 +1,15 @@
+# Netlify redirects file
+# Handles clean URLs without .html extension
+
+# Remove .html extension from URLs
+/merch              /merch.html      200
+/history            /biography.html  200
+/biography          /biography.html  200
+/music              /music.html      200
+/press              /press.html      200
+
+# Optional: redirect .html URLs to clean versions (prevents duplicate content)
+/merch.html         /merch           301!
+/biography.html     /history         301!
+/music.html         /music           301!
+/press.html         /press           301!
